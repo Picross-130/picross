@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../cs130-project-css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Nonogram</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li> <a href="../cs130-project-html/how-to-play.html">How to play</a> </li>
+                <li> <a href="../cs130-project-html/about.html">About</a> </li>
+                <li> <a href="../cs130-project-html/about.html">Login</a> </li>
+
+            </ul>
+        </nav>
+    </header>
+
+        <h1 id="gameTitle">NONOGRAM</h1>
+
+        <div id="container">
+            <div id="centerGridDiv">
+                <h2 id="letsPlay">Let's Play!</h2>
+                <div id="modeDiv">
+                    <button id="normalMode">Normal Mode</button>
+                    <button id="arcadeMode">Arcade Mode</button>
+                    <button id="timeAttackMode">Time Attack Mode</button>
+                </div>
+            </div>
+
+            <aside id = "asideLeft">
+                <a href="file:///Users/alanortega/Documents/CSCI/CSCI_130/csci130-project/cs130-project-html/index.html"><button id="mainMenuBtn">Main Menu</button></a>
+                <div>A button</div>
+                <div>B button</div>
+                <div>C button</div>
+                <div>D button</div>
+
+            </aside>
+
+            <aside id = "gridSettings">
+                <h2>Grid color</h2>
+                    <form id = "gridColorForm">
+                        <input class="gridColors" type="radio" name="gridColor" value="white" checked> White<br>
+                        <input class="gridColors" type="radio" name="gridColor" value="orange"> Orange<br>
+                        <input class="gridColors" type="radio" name="gridColor" value="aqua"> Aqua
+                    </form>
+        
+                <h2>Block color</h2>
+                    <form id = "blockColorForm">
+                        <input class="blockColors" type="radio" name="blockColor" value="black" checked> Black<br>
+                        <input class="blockColors" type="radio" name="blockColor" value="grey"> Grey<br>
+                        <input class="blockColors" type="radio" name="blockColor" value="aqua"> Aqua
+                    </form>
+
+                <h2>Grid Size</h2>
+
+            </aside>
+        </div>
+        <div id="timerContainer">
+
+        </div>
+        <footer></footer>
+    <script src="../cs130-project-javascript/main.js"></script>
+</body>
+</html>
