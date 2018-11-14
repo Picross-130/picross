@@ -8,14 +8,10 @@ var gridColor = "white";
 //Login Popup form
 function launch(){
     var modal = document.getElementById('modal');
-    var span = document.getElementById('close')[0];
 
     //shows the login box
-    document.getElementById("modal").style.display = "block";
-    //if user clicks on span (x) then the popup closes
-    span.onlick = function() {
-        modal.style.display = "none";
-    }
+    modal.style.display ="block";
+
     //if user clicks anywhere on the screen besides the popup, screen closes
     window.onclick = function(event){
         if(event.target == modal){
@@ -208,7 +204,7 @@ function clickedBtn13(){
 //Helper function to get time
 function startTime(){
     var startTime = Date.now();
-    clearInterval(timer);
+    clearTimeout(timer);
     var timer = setInterval(function(){getTime(startTime);}, 1000);
 }
 

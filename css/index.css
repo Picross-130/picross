@@ -169,3 +169,61 @@ table{
 /* #gridSettings{
 	float: left;
 } */
+
+
+/* Login box  */
+.register{
+	padding-top: 5%;
+}
+input[type=text], input[type=password] {
+	width: 80%;
+	padding: 10px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+#login{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+	margin: 10px 0px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+}
+
+#modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+#modal-container {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+	width: 30%; 
+	padding-bottom: 70px;
+}
+.close {
+    /* position: absolute; */
+	color: #000;
+    font-size: 35px;
+	font-weight: bold;
+	/* text-align: center; */
+    margin:0;
+	position: relative;
+	left: 14vw;
+	top: 0;
+}
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
