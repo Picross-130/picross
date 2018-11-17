@@ -198,6 +198,7 @@ function cellClicked(cell){
     }
 
     console.log("numElemsClicked: " + numElemsClicked);
+    console.log("CurrentLevel: " + currentLevel);
     if(numElemsClicked === numElements) //for efficiency
         checkGameProgress();
     numTurns++;
@@ -324,6 +325,7 @@ function startTime(){
 
 function setUpForNormalMode(){
     var normModDiv = document.createElement("div");
+    normModDiv.setAttribute("id","normModDiv");
     var normModH3 = document.createElement("h3");
     normModH3.textContent = "Select Option";
     var randomLevelBtn = document.createElement("button");
@@ -342,6 +344,7 @@ function setUpForNormalMode(){
 }
 
 function randomLevels(){
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("normModDiv"));
     var randLevel = "";
     //create random level
     for( var r = 0; r < (gridSize*gridSize); r++){
@@ -475,6 +478,36 @@ function displayGridInfo(level){
     }
 }
 
+function playArcadeMode(game_obj){
+    var levelList = [];
+    var currLevel = "";
+    var continuePlaying = true;
+
+    var arcPlayDiv = document.createElement("div");
+    // arcPlayDiv.style.display = "none";
+    arcPlayDiv.setAttribute("id", "arcPlayDiv");
+    var arcBtnContinue = document.createElement("button");
+    arcBtnContinue.setAttribute("id", "arcContinue");
+    arcBtnContinue.addEventListener("click", function(){continuePlaying = true;});
+
+
+
+    console.log(game_obj);
+    if(gridSize == 7){
+        levelList = game_obj.arcade.arcade7;
+    }
+    else if(gridSize == 13){
+        levelList = game_obj.arcade.arcade13;
+    }
+
+    while(continuePlaying){
+
+    }
+
+
+}
+
+
 
 //  /!\IMPORTANT/!\
 // Based on what grid size the user chooses, load appropriate set of levels b/c when displaying 
@@ -482,15 +515,40 @@ function displayGridInfo(level){
 //0000000011011010010011000001010001000101000001000
 function loadArcadeLevels(){
     var gameObj;    //object received from http request
+    var gameObjLevel = "";
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameObj = JSON.parse(this.responseText);
-            console.log(levelObj);
+            gameObj = JSON.parse(gameObj);
+            playArcadeMode(gameObj);
         }
     };
     xmlhttp.open("GET", "../php/nonogram.php", true);
     xmlhttp.send();
+
+            // if(gridSize === 7){
+            //     gameObjLevel = gameObj.arcade.arcade7[0].level1;
+            //     console.log("Hi2");
+            //     console.log(gameObjLevel)  
+            // }
+            // for( var arcL = 0; arcL < (gridSize*gridSize); arcL++){
+            //     if(gameObjLevel.charAt(arcL) == 1){
+            //         numElements++;
+            //         console.log("Hi");
+            //         console.log(gameObjLevel[arcL]);
+            //     }
+            // }
+
+            // for( var arcIndex = 0; arcIndex < gridSize*gridSize; arcIndex++)  //rli = rand level index
+            //     completedLevel[arcIndex] = gameObjLevel.charAt(arcIndex);
+
+            // createTable(gridSize);
+            // displayGridInfo(gameObjLevel);
+
+
+    //console.log("Hello world");
+    //console.log(gameObj);
 
     //without reading json file
     // console.log("in loadarcadelevels");
@@ -596,7 +654,28 @@ function checkGameProgress(){
 }
 
 function gameComplete(){
-    console.log("You Won!")
+    var gameWonDiv = document.createElement("div");
+    gameWonDiv.setAttribute("id","gameWonDiv");
+    gameWonDiv.textContent = "Game Complete!"
+
+    var gameWonAnchor = document.createElement("a");
+    gameWonAnchor.setAttribute("href", "../HTML/index.html");
+
+    var gameWonBtn = document.createElement("button");
+    gameWonBtn.textContent = "Play Again";
+
+    gameWonAnchor.innerHTML = "<br>";
+    gameWonAnchor.appendChild(gameWonBtn);
+    gameWonDiv.appendChild(gameWonAnchor);
+
+    var theCenterDiv = document.getElementById("centerGridDiv");
+    while (theCenterDiv.firstChild) {
+        theCenterDiv.removeChild(theCenterDiv.firstChild);
+    }
+
+    document.getElementById("asideLeft").style.display = "none";
+    document.getElementById("gridSettings").style.display = "none";
+    theCenterDiv.appendChild(gameWonDiv);
 }
 
 function gameError(){
