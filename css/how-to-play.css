@@ -1,0 +1,39 @@
+
+h1{
+    text-align: center;
+}
+
+p{
+    margin-right: auto;
+    margin-left: auto;
+    width: 40vw;
+    
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 5vw;
+    height: auto;
+    width: auto;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    padding-right: 40px;
+}
+
+input [type=button]{
+    background-color: orange;
+    border: none;
+    text-decoration: none;
+    color: white;
+    padding: 20px 20px;
+    margin: 20px 20px;
+    width: 5rem;
+    cursor: pointer;
+
+}
+
