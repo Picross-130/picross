@@ -184,12 +184,13 @@ table{
 	float: left;
 } */
 
-
-/* Login box  */
+/* ---------------------------------------------------------------  */
+/* -----------------Login/Register box----------------------------  */
+/* ---------------------------------------------------------------  */
 .register{
 	padding-top: 5%;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
 	width: 80%;
 	padding: 10px 20px;
     margin: 10px 0;
@@ -197,7 +198,7 @@ input[type=text], input[type=password] {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-#login{
+#login, #signUp{
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -207,7 +208,7 @@ input[type=text], input[type=password] {
     width: 80%;
 }
 
-#modal {
+#modal, #register-modal{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -218,7 +219,7 @@ input[type=text], input[type=password] {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-#modal-container {
+#modal-container, #reg-modal-container{
     background-color: #fefefe;
     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
@@ -236,10 +237,18 @@ input[type=text], input[type=password] {
 	left: 14vw;
 	top: 0;
 }
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
     color: red;
-    cursor: pointer;
+	cursor: pointer;
+}
+
+label{
+	display: flex;
+	padding-left: 10%;
+	font-weight: bold;
+	/* padding: 20%; */
+}
+
 /* #thc0{
 	font-size: 0;
 } */
@@ -256,7 +265,6 @@ input[type=text], input[type=password] {
 	/* height: auto; */
 	/* white-space: nowrap */
 
-} */
 /* .thc{ */
 	/* transform-origin: left top 0; */
 	/* writing-mode: vertical-lr; */

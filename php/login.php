@@ -1,67 +1,41 @@
-<?php
+<?php include 'server.php';
 
 //make this cleaner
 if(isset($_POST['username'])){
     $username =  htmlspecialchars($_POST['username']);
-    // $password = $_POST['password'];
+    $password = $_POST['password'];
+    echo "Username is " . $username. "\n";
+    echo "The password is " . $password. "\n";
 }
 else{
     echo "Form not submitted!\n";
 }
 
-$password = $_POST['password'];
-echo "The password is" . $password;
 
-//by default XAMPP uses root for user and '' for password
-$serverName = "localhost";
-$user = "root";
-$password = "";
-$dbname = "users";
-
-// creates connection
-$conn = new mysqli($serverName, $user, $password, $dbname);
-
-//checks connection
-if($conn->connect_error){
-    die("Connection failed: ". $conn->connect_error . "\n");
-}
-
-// Creation of the database
-// $sql = "CREATE DATABASE myDatabase";
-// if ($conn->query($sql) === TRUE) {
-//     echo "Database created successfully<br>";
-// } else {
-//     echo "Error creating database: " . $conn->error ."<br>";
-// }
-
-$conn->close();
-
-// Create connection
-$conn = new mysqli($serverName, $user, $password, $dbname);
+//open a connection to Sql server
+$conn = new mysqli($serverName, $admin, $serverPassword, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-echo "Connected successfully\n";
 
-$sql = "CREATE TABLE User (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    username VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
-    password VARCHAR(30) NOT NULL,
-    score INT(11) NULL,
-    reg_date TIMESTAMP
-    )";
+$sql = "SELECT username, password FROM User";
+$result = $conn->query($sql);
 
-//insert elements into the database
-if ($conn->query($sql) === TRUE) {
-        echo "Table Person created successfully";
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        if($row["username"] === $username && $row["password"] === $password){
+            echo "Access granted";
+        }
+        else{
+            echo "Wrong Username and password";
+            break;
+        }
+        //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    }
 } else {
-    echo "Error creating table: " . $conn->error ."\n";
+    echo "No account found";
 }
-
-// close the connection
-$conn->close();
-
 
 ?>
