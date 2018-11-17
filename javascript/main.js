@@ -4,7 +4,6 @@ window.onload = setup;
 //Didn't wanna use globals but can't really think of an easier way
 var blockColor = "black";
 var gridColor = "white";
-<<<<<<< HEAD
 
 //Login Popup form
 function launch(){
@@ -22,7 +21,6 @@ function launch(){
 }
 
 //Setup event listeners, create necessary elements and hide certain elements
-=======
 var numTurns = 0;       //current number of turns
 var numElements = 0;    //number of elements placed on grid
 var numElemsClicked = 0;      //incremented when user selected cell, decremented when user unselects cell
@@ -33,42 +31,20 @@ var completedLevel = [];    //reference to the completed level
 var currentLevel = [];      //what the current level looks like as user plays (selects cells)
 
 //Setup even listeners, create necessary elements and hide certain elements
->>>>>>> master
 //not currently needed
 function setup(){
     //hide asides in index.html until user chooses grid size
     document.getElementById("asideLeft").style.display = "none";
     document.getElementById("gridSettings").style.display = "none";
-<<<<<<< HEAD
     document.getElementById('modal').style.display = "none";
 
     //create div to hold the timer
-    var timer = document.createElement("div");
-=======
-
-    //create div to hold the timer
     var timer = document.createElement("h3");
->>>>>>> master
     timer.setAttribute("id","timer");
     timer.textContent = "Timer:";
     document.getElementById("asideLeft").appendChild(timer);
 
     //onclick event for all three mode buttons
-<<<<<<< HEAD
-    document.getElementById("modeDiv").addEventListener("click", function(event){selectMode(event.target.id);})
-
-    //Button to change size of grid
-    //Created at first but hidden until player chooses grid option
-    var changeGridDiv = document.createElement("div");
-    changeGridDiv.setAttribute("id", "changeGridDiv");
-    var changeGridBtn = document.createElement("button");
-    changeGridBtn.setAttribute("id", "changeGridBtn");
-    changeGridBtn.addEventListener("click", changeGridSize);
-    changeGridDiv.appendChild(changeGridBtn);
-    changeGridDiv.style.display = "none"
-    document.getElementById("gridSettings").appendChild(changeGridDiv);
-    //document.getElementById("gameTitle").appendChild(changeGridDiv);
-=======
     document.getElementById("normalMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
     document.getElementById("arcadeMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
     document.getElementById("timeAttackMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
@@ -84,7 +60,6 @@ function setup(){
     // changeGridDiv.appendChild(changeGridBtn);
     // changeGridDiv.style.display = "none"
     // document.getElementById("gridSettings").appendChild(changeGridDiv);
->>>>>>> master
 
     //To detect when grid color radio button was selected
     $("input.gridColors").change(function() {
@@ -95,10 +70,6 @@ function setup(){
     $("input.blockColors").change(function() {
         changeBlockColor(this.value);
     });
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 }
 
 //==================================================
@@ -107,12 +78,8 @@ function setup(){
 
 //Called by selectMode() when user choses a mode to play
 function basicSetup(){
-<<<<<<< HEAD
-    /*Div to hold the grid option title and 7x7
-=======
     console.log("in basicsetup");
     /*Div to hold the grid option title, 7x7
->>>>>>> master
       and 13x13 buttons*/
     var gridOptionDiv = document.createElement("div");
     gridOptionDiv.setAttribute("id", "gridOptionDiv");
@@ -142,11 +109,6 @@ function basicSetup(){
     //Append option div
     document.getElementById("gameTitle").appendChild(gridOptionDiv);
 
-<<<<<<< HEAD
-    //Hide play button
-    document.getElementById("modeDiv").style.display = "none";
-
-=======
     //Hide mode buttons
     document.getElementById("modeDiv").style.display = "none";
 
@@ -156,17 +118,12 @@ function basicSetup(){
     //     isModeThere.style.display = "none";
     // else
     //     document.getElementById("levelOptionDiv").style.display = "none";
->>>>>>> master
 }
 
 //create an n x n table (the grid)
 function createTable(n){
-<<<<<<< HEAD
-    //things related to the table
-=======
     console.log("in createtable");
     //properties related to the table
->>>>>>> master
     var nameOfTable = "table" + n;  //will hold id of table
     var table = document.createElement("table");            
     table.setAttribute("id",nameOfTable);
@@ -174,8 +131,6 @@ function createTable(n){
 
     var tdCount1 = 0;   //to keep cound of how many cells
 
-<<<<<<< HEAD
-=======
     //# CHANGES MADE FOR DISPLAYING CELL TEXT VERTICALLY
     var THCR = document.createElement("tr");
     THCR.setAttribute("id","thcr");
@@ -190,37 +145,26 @@ function createTable(n){
     }
     table.appendChild(THCR);    //#1 CHANGES
 
->>>>>>> master
     //create tds (cells) of table
     for(var i = 0; i < n; i++){
         var tdCount2 = 0;   //to keep count of how many cells
         var aTR = document.createElement("tr");
-<<<<<<< HEAD
-
-=======
         var aTHR = document.createElement("th"); //a table header for a row (holds nanogram info for that row)
         aTHR.setAttribute("id","thr"+i);    //thr_
         aTHR.setAttribute("class","thr");
         aTHR.textContent = aTHR.getAttribute("id");
         aTR.appendChild(aTHR);
->>>>>>> master
         for(var j = 0; j < n; j++){
             var aTD = document.createElement("td")  //create a cell
             var cell_id = "cell";                   //id value for cell
             aTD.setAttribute("id","cell"+ (tdCount1+tdCount2));
             aTD.setAttribute("class","cell");
             aTD.setAttribute("value","0");  //to toggle between clicked/unclicked
-<<<<<<< HEAD
-            aTD.innerHTML = aTD.getAttribute("id");
-            //add onclick event for each cell
-            aTD.addEventListener("click", function(){cellClicked(this.id);}, false);
-=======
             aTD.setAttribute("name",tdCount1+tdCount2);
             // aTD.innerHTML = aTD.getAttribute("name");
             //add onclick event for each cell
             aTD.addEventListener("click", function(){cellClicked(this);}, false);
             // aTD.addEventListener("click", function(){cellClicked(this.id);}, false);
->>>>>>> master
             aTR.appendChild(aTD);   //attach td to tr
             aTD.style.border = "1px solid black";
             table.style.borderCollapse="collapse";
@@ -230,29 +174,6 @@ function createTable(n){
         tdCount2++;
     }
 
-<<<<<<< HEAD
-    //Create id for table and append to body
-    var tableDivName = "tableDiv" + n;
-    var tableDiv = document.createElement("div");
-    tableDiv.setAttribute("id", tableDivName);
-    tableDiv.appendChild(table);
-
-    document.getElementById("centerGridDiv").appendChild(tableDiv);
-    //document.body.appendChild(tableDiv);
-
-    table.style.margin = "auto";
-
-    startTime();
-}
-
-
-//#### NEEDS change color when reclicked (bool)
-//when a cell is clicked
-function cellClicked(cellId){
-    if(document.getElementById(cellId).getAttribute("value") === "0"){
-        $("#"+cellId).attr("value", "1");
-        $("#"+cellId).css("background-color", blockColor);
-=======
     //append table
     document.getElementById("centerGridDiv").appendChild(table);
 
@@ -279,15 +200,10 @@ function cellClicked(cell){
         $("#"+cellId).attr("value", "1");
         $("#"+cellId).css("background-color", blockColor);
         numElemsClicked++;
->>>>>>> master
     }
     else{
         $("#"+cellId).attr("value", "0");
         $("#"+cellId).css("background-color", gridColor);
-<<<<<<< HEAD
-    }
-
-=======
         numElemsClicked--;
     }
 
@@ -305,32 +221,17 @@ function cellClicked(cell){
         checkGameProgress();
     numTurns++;
     document.getElementById("numTurns").textContent = "Turns: " + numTurns;
->>>>>>> master
 
 }
 
 //User selects grid size option 7x7. Display asides and call createTable()
 function clickedBtn7(){
-<<<<<<< HEAD
-    document.getElementById("asideLeft").style.display = "block";
-    document.getElementById("gridSettings").style.display = "block";
-    createTable(7); //create 7 x 7 table
-=======
     console.log("in clicked 7");
     // createTable(7); //create 7 x 7 table
->>>>>>> master
 
     //Hide the grid option header
     document.getElementById("gridOptionDiv").style.display = "none";
 
-<<<<<<< HEAD
-    //Set appropriate text and display button
-    var changeGridBtn = document.getElementById("changeGridBtn");
-    changeGridBtn.setAttribute("name", "size7");
-    changeGridBtn.textContent = "Try 13x13";
-    var changeGridDiv = document.getElementById("changeGridDiv");
-    changeGridDiv.style.display = "block";
-=======
     gridSize = 7;
 
     //current level initilization
@@ -347,92 +248,19 @@ function clickedBtn7(){
     // changeGridBtn.textContent = "Try 13x13";
     // var changeGridDiv = document.getElementById("changeGridDiv");
     // changeGridDiv.style.display = "block";
->>>>>>> master
 }
 
 //User selects grid size option 13x13. Display asides and call createTable()
 function clickedBtn13(){
-<<<<<<< HEAD
-    document.getElementById("asideLeft").style.display = "block";
-    document.getElementById("gridSettings").style.display = "block";
-
-    createTable(13); //create 13 x 13 table
-=======
     console.log("in clicked 13");
     // document.getElementById("asideLeft").style.display = "block";
     // document.getElementById("gridSettings").style.display = "block";
 
     // createTable(13); //create 13 x 13 table
->>>>>>> master
 
     //Hide the grid option header
     document.getElementById("gridOptionDiv").style.display = "none";
 
-<<<<<<< HEAD
-    //Set appropriate text and display button
-    var changeGridBtn = document.getElementById("changeGridBtn");
-    changeGridBtn.setAttribute("name", "size13");
-    changeGridBtn.textContent = "Try 7x7";
-    var changeGridDiv = document.getElementById("changeGridDiv");
-    changeGridDiv.style.display = "block";
-
-}
-
-//Helper function to get time
-function startTime(){
-    var startTime = Date.now();
-    clearTimeout(timer);
-    var timer = setInterval(function(){getTime(startTime);}, 1000);
-}
-
-//========================================
-//=        End of Helper Functions       =
-//========================================
-
-
-//Change size of grid to 7x7 or 13x13
-function changeGridSize(){
-    var the_btn = document.getElementById("changeGridBtn");
-
-    if(the_btn.getAttribute("name") === "size7"){   //current value of name attribute is size7
-        var doesTable13Exist = document.getElementById("table13");
-
-        //if table 13x13 has not yet been created
-        if(doesTable13Exist == null){
-            document.getElementById("tableDiv7").style.display = "none";  //hide previous table
-            createTable(13);    //create 13 x 13
-            
-        }
-    
-        //Set appropriate values for button
-        the_btn.setAttribute("name", "size13"); //reset name attribute
-        the_btn.textContent = "Try 7x7";
-
-        //hide other table (if any)
-        document.getElementById("tableDiv13").style.display = "block"
-        document.getElementById("tableDiv7").style.display = "none";
-
-    }
-    else if(the_btn.getAttribute("name") === "size13"){ //current value of name attribute is size13
-        var doesTable7Exist = document.getElementById("table7");
-
-        //if table 7x7 has not yet been created
-        if(doesTable7Exist == null){
-            document.getElementById("tableDiv13").style.display = "none";   //hide previous table
-            createTable(7);    //create 13 x 13
-        }
-    
-        //Set appropriate values for button
-        the_btn.setAttribute("name", "size7");  //reset name attribute
-        the_btn.textContent = "Try 13x13";
-
-        //hide other table (if any)
-        document.getElementById("tableDiv7").style.display = "block"
-        document.getElementById("tableDiv13").style.display = "none";
-    }
-}
-
-=======
     gridSize = 13;
 
     //current level initilization
@@ -788,7 +616,6 @@ function loadArcadeLevels(){
 //     }
 // }
 
->>>>>>> master
 //User selects grid color radio button
 function changeGridColor(grid_color){
     gridColor = grid_color;
@@ -802,37 +629,13 @@ function changeGridColor(grid_color){
 //make globar var initially set to black(the default color when cell is clicked)
 //then do onclick to set the background color to the appropriate radio button color
 //the call the function to handle the backend part of it.
-<<<<<<< HEAD
-=======
 
 //User selects block color raio button
->>>>>>> master
 function changeBlockColor(block_color){
     blockColor = block_color;
     var cellList = document.querySelectorAll(".cell[value='1']");
     for( var i = 0; i < cellList.length; i++)
         cellList[i].style.backgroundColor = blockColor;
-<<<<<<< HEAD
-    //document.querySelector(".example").style.backgroundColor = "red";
-
-
-    //$(.cell).focus(function(){});
-
-
-    //=======
-    // $(".cell").hover(function(){
-    //     $(this).css("background-color", block_color);
-    //     }, function(){
-    //     $(this).css("background-color", rgb(231,234,237));
-    // });
-    //=======
-
-    // $( ".cell" ).hover(
-    //     function() {$( this ).css("background-color", block_color);}
-    // )
-    // $( ".cell" ).hover(function(){this.});
-=======
->>>>>>> master
 }
 
 //Calculate the time
@@ -841,10 +644,7 @@ function getTime(startTime){
     var timeEllapsed= Date.now();
     timeEllapsed -= startTime;
     timeEllapsed = timeEllapsed/1000;
-<<<<<<< HEAD
-=======
     timeEllapsed = Math.floor(timeEllapsed);
->>>>>>> master
 
     hours = Math.floor(timeEllapsed / 3600);
     minutes = Math.floor((timeEllapsed % 3600) / 60);
@@ -860,11 +660,6 @@ function numElemInGrid(){
 function numOfTurns(){
 
 }
-<<<<<<< HEAD
-
-function gameComplete(){
-
-=======
 function checkGameProgress(){
     console.log("Checking Game");
     var gameWon = true;
@@ -899,7 +694,6 @@ function gameComplete(){
     document.getElementById("asideLeft").style.display = "none";
     document.getElementById("gridSettings").style.display = "none";
     theCenterDiv.appendChild(gameWonDiv);
->>>>>>> master
 }
 
 function gameError(){
@@ -907,17 +701,6 @@ function gameError(){
 }
 
 function suggestMoves(){
-<<<<<<< HEAD
-
-}
-
-function createRandomLevel(){
-
-}
-
-function createFromImage(){
-
-=======
     /*
     here you can do something like getting a randsom number from 0..(n^2)[n being the size of the grid]
     and while the n == 1, get a new n then when you find an n == 0 you mark that cell with an x
@@ -935,30 +718,10 @@ function uploadImage(){
 function userModeChoice(event_target_id){
     playMode = event_target_id;
     basicSetup();
->>>>>>> master
 }
 
 //Helper function for basicSetup() to determine which mode button was pressed
 //Calls desired mode function.
-<<<<<<< HEAD
-function selectMode(event_target_id){
-    if(event_target_id === "normalMode")
-        normalMode();
-    else if(event_target_id === "arcadeMode")
-        arcadeMode();
-    else if(event_target_id === "timeAttackMode")
-        timeAttackMode();
-}
-
-//User chose normal mode
-function normalMode(){
-    basicSetup();
-}
-
-//User chose arcade mode
-function arcadeMode(){
-    basicSetup();
-=======
 function selectMode(){
     console.log("in selectmode");
     // basicSetup();
@@ -998,13 +761,8 @@ function arcadeMode(){
     document.getElementById("asideLeft").style.display = "block";
     document.getElementById("gridSettings").style.display = "block";
 
->>>>>>> master
 }
 
 //User chose time attack mode
 function timeAttackMode(){
-<<<<<<< HEAD
-    basicSetup();
-=======
->>>>>>> master
 }
