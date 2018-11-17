@@ -4,22 +4,11 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: rgb(55,154,218);
 }
-<<<<<<< HEAD
-header{
-	width: 100%;
-
-}
-nav {
-	text-align: center;
-	/* align-content: center; */
-	/* max-width: 100%; */
-=======
 
 nav {
 	text-align: center;
 	/* align-content: center; */
 	max-width: 100%;
->>>>>>> master
 	background-color: white;
 	padding: none;
 }
@@ -40,13 +29,10 @@ li {
 	width: 24%;
 	text-align: center;
 	border-left: 1px solid rgb(231,234,237);
-<<<<<<< HEAD
 	padding: 2vh;
 }
 li.lastItem{
 	border-right: 1px solid rgb(231,234,237);
-=======
->>>>>>> master
 }
 
 a{
@@ -54,13 +40,10 @@ a{
 }
 
 #modeDiv{
-<<<<<<< HEAD
-=======
 	display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
->>>>>>> master
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -84,11 +67,6 @@ a{
 	background-color: orange;
 }
 
-<<<<<<< HEAD
-
-#container{
-	display: flex;
-=======
 #asideLeft{
 	box-shadow: 0 6px 0 rgba(255,255,255,0.2) inset;
 	background-color: red;
@@ -108,44 +86,25 @@ a{
 	flex-direction: row;
 	align-content: center;
 	justify-content: center;
->>>>>>> master
 }
 
 #centerGridDiv{
 	order: 2;
-<<<<<<< HEAD
-	flex-grow: 2;
-	/* display: flex; */
-	/* flex-direction: row; */
-=======
 	flex-grow: 1;
->>>>>>> master
 }
 
 #asideLeft{
 	order: 1;
 	flex-grow: 0;
-<<<<<<< HEAD
-	border: 1px solid black;
-	background-color: rgb(231,234,237);
-	padding: 20px;
-=======
 	border: 1px solid grey;
 	background-color: rgb(231,234,237);
->>>>>>> master
 }
 
 #gridSettings{
 	order: 3;
 	flex-grow: 0;
-<<<<<<< HEAD
-	border: 1px solid black;
-	background-color: rgb(231,234,237);
-	padding: 20px;
-=======
 	border: 1px solid grey;
 	background-color: rgb(231,234,237);
->>>>>>> master
 }
 
 h1{
@@ -206,16 +165,6 @@ button{
 	margin-left: 3px;
 }
 
-<<<<<<< HEAD
-/* tr:hover {
-	background-color: aqua;
-} */
-
-td:hover {
-	background-color: silver;
-	cursor: default;
-}
-=======
 /* .cell:hover {
 	background-color: silver;
 	cursor: default;
@@ -225,14 +174,12 @@ td:hover {
 	background-color: silver;
 	cursor: default;
 } */
->>>>>>> master
 
 table{
 	background-color: white;
 	margin: auto;
 }
 
-<<<<<<< HEAD
 /* #gridSettings{
 	float: left;
 } */
@@ -293,12 +240,11 @@ input[type=text], input[type=password] {
 .close:focus {
     color: red;
     cursor: pointer;
-=======
-#thc0{
+/* #thc0{
 	font-size: 0;
-}
+} */
 
-.thcr{
+/* .thcr{
 	-webkit-transform:rotate(90deg);
     -moz-transform:rotate(90deg);
     -o-transform: rotate(90deg);
@@ -310,7 +256,7 @@ input[type=text], input[type=password] {
 	/* height: auto; */
 	/* white-space: nowrap */
 
-}
+} */
 /* .thc{ */
 	/* transform-origin: left top 0; */
 	/* writing-mode: vertical-lr; */
@@ -348,5 +294,4 @@ th{
 .cell{
 	height: 2em;
 	width: 2em;
->>>>>>> master
 }
