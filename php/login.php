@@ -1,4 +1,4 @@
-<?php include_once 'server.php';
+<?php include 'server.php';
 
 session_start();
 //make this cleaner
