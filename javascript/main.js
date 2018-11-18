@@ -20,6 +20,24 @@ function launch(){
     }
 }
 
+function launchRegister(){
+    var modal = document.getElementById('modal');
+    modal.style.display = "none";
+
+    var regModal = document.getElementById('register-modal');
+
+    //shows the login box
+    regModal.style.display ="block";
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == regModal){
+            regModal.style.display = "none";
+        }
+    }
+
+}
+
 //Setup event listeners, create necessary elements and hide certain elements
 var numTurns = 0;       //current number of turns
 var numElements = 0;    //number of elements placed on grid

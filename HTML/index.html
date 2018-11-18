@@ -23,17 +23,36 @@
         <!-- Popup box for login form -->
         <div id="modal">
             <div id="modal-container">
-                <form action="../php/login.php" method="POST">
+                <form id="loginForm">
                     <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
                     <h2>Login</h2>
-                    <input type="text" id="username" placeholder="Username">
-                    <input type="password" id="password" placeholder="Password">
-                    <input type="button" onclick="loadToServer()" id="login" name="login" value="Login">
+                    <div id="loginErrors"></div>
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="button" onclick="loadToServer()" id="login" value="Login">
                     <div class="register">
-                        <a href="#">Register</a> - <a href="#">Forgot Password?</a>
+                        <a href="#" onclick="launchRegister()">Register</a> - <a href="#">Forgot Password?</a>
                     </div>
                 </form>
-                
+            </div>
+        </div>
+        <!-- Popup box for register form -->
+        <div id="register-modal">
+            <div id="reg-modal-container">
+                <form id="register">
+                    <span class="close" onclick="document.getElementById('register-modal').style.display='none'">&times;</span>
+                    <h2>Sign Up</h2>
+                    <div id="errors"></div>
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="Enter an email">
+                    <label>Username</label>
+                    <input type="text" id="regUsername" placeholder="Enter a username" required>
+                    <label>Password</label>
+                    <input type="password" id="password1" placeholder="Enter a password" required>
+                    <label>Re-Enter Password</label>
+                    <input type="password" id="password2" placeholder="Re-Enter password" required>
+                    <input type="button" onclick="regToServer()" id="signUp" value="Sign Up">
+                </form>
             </div>
         </div>
     </header>
