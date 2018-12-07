@@ -4,14 +4,19 @@ window.onload = setup;
 //Didn't wanna use globals but can't really think of an easier way
 var blockColor = "black";
 var gridColor = "white";
-var numTurns = 0;       //current number of turns
-var numElements = 0;    //number of elements placed on grid
-var numElemsClicked = 0;      //incremented when user selected cell, decremented when user unselects cell
-var arcadeLevel = 0;    //current arcade level
+var numTurns = 0;           //current number of turns
+var numElements = 0;        //number of elements placed on grid
+var numElemsClicked = 0;    //incremented when user selected cell, decremented when user unselects cell
+var levelIndex = 0;        //current arcade level
 var gridSize = 0;
-var playMode = null;
+var playMode = null;        //mode user chooses
+var levelList = [{}];       //list of levels in the arcade mode
 var completedLevel = [];    //reference to the completed level
 var currentLevel = [];      //what the current level looks like as user plays (selects cells)
+var startInterval;          //handler for setInterval(startTime function) 
+var countDownTime;    //player has 5 mininutes to complete a level
+var countDownInterval;      //handler for setInterval(countDown function)
+
 
 //Setup even listeners, create necessary elements and hide certain elements
 //not currently needed
@@ -31,6 +36,8 @@ function setup(){
     document.getElementById("arcadeMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
     document.getElementById("timeAttackMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
 
+    //onclick event aside div buttons
+    document.getElementById("done").addEventListener("click",checkGameProgress);
 
     //Button to change size of grid
     //Created at first but hidden until player chooses grid option
@@ -104,6 +111,12 @@ function basicSetup(){
 
 //create an n x n table (the grid)
 function createTable(n){
+    //current level initilization
+    for( var currLevelIndex = 0; currLevelIndex < gridSize*gridSize; currLevelIndex++)
+        currentLevel[currLevelIndex] = 0;
+
+    console.log("Current level: " + currentLevel);
+
     console.log("in createtable");
     //properties related to the table
     var nameOfTable = "table" + n;  //will hold id of table
@@ -159,6 +172,14 @@ function createTable(n){
     //append table
     document.getElementById("centerGridDiv").appendChild(table);
 
+    //div to hold progress when player clicks done btn
+    var progressDiv = document.createElement("div");
+    progressDiv.setAttribute("id","progress");
+    progressDiv.style.fontWeight = 'bold';
+    progressDiv.style.fontSize = 'x-large';
+    progressDiv.style.display = "none";
+    document.getElementById("centerGridDiv").appendChild(progressDiv);
+
     table.style.margin = "auto";
 
     //reset color for grid/blocks
@@ -167,8 +188,21 @@ function createTable(n){
     changeGridColor("white");
     changeBlockColor("black");
 
-    //start time
-    startTime();
+    document.getElementById("timer").textContent = "Time: 0:0:0";
+
+    //start time to be used for normal and arcade mode
+    if(playMode == "normalMode" || playMode == "arcadeMode"){
+        //startTime();
+        var startTime = Date.now();
+        startInterval = setInterval(function(){getTime(startTime);}, 1000);
+    }
+    else{
+        if(n == 7)
+            countDownTime = 300;
+        else if (n == 13)
+            countDownTime = 600;
+        countDownInterval = setInterval(function(){countDown();}, 1000);
+    }
 }
 
 //#### NEEDS change color when reclicked (bool)
@@ -177,6 +211,9 @@ function cellClicked(cell){
     cellId = cell.id;
     var thisCell = document.getElementById(cellId);
     cellName = thisCell.getAttribute("name");
+
+    //remove the error message (if any)
+    document.getElementById("progress").style.display = "none";
 
     if(document.getElementById(cellId).getAttribute("value") === "0"){
         $("#"+cellId).attr("value", "1");
@@ -189,7 +226,7 @@ function cellClicked(cell){
         numElemsClicked--;
     }
 
-    //upadate cell value for current level prior to check game completion
+    //upadate cell value for current level prior to checking game completion
     if(currentLevel[cellName] === 1){
         currentLevel[cellName] = 0;
     }
@@ -199,8 +236,8 @@ function cellClicked(cell){
 
     console.log("numElemsClicked: " + numElemsClicked);
     console.log("CurrentLevel: " + currentLevel);
-    if(numElemsClicked === numElements) //for efficiency
-        checkGameProgress();
+    // if(numElemsClicked === numElements) //for efficiency
+    //     checkGameProgress();
     numTurns++;
     document.getElementById("numTurns").textContent = "Turns: " + numTurns;
 
@@ -209,56 +246,25 @@ function cellClicked(cell){
 //User selects grid size option 7x7. Display asides and call createTable()
 function clickedBtn7(){
     console.log("in clicked 7");
-    // createTable(7); //create 7 x 7 table
-
+  
     //Hide the grid option header
     document.getElementById("gridOptionDiv").style.display = "none";
 
     gridSize = 7;
 
-    //current level initilization
-    for( var currLevelIndex = 0; currLevelIndex < gridSize*gridSize; currLevelIndex++)
-        currentLevel[currLevelIndex] = 0;
-
-    console.log("Current level: " + currentLevel);
-
     selectMode();
-
-    // //Set appropriate text and display button
-    // var changeGridBtn = document.getElementById("changeGridBtn");
-    // changeGridBtn.setAttribute("name", "size7");
-    // changeGridBtn.textContent = "Try 13x13";
-    // var changeGridDiv = document.getElementById("changeGridDiv");
-    // changeGridDiv.style.display = "block";
 }
 
 //User selects grid size option 13x13. Display asides and call createTable()
 function clickedBtn13(){
     console.log("in clicked 13");
-    // document.getElementById("asideLeft").style.display = "block";
-    // document.getElementById("gridSettings").style.display = "block";
-
-    // createTable(13); //create 13 x 13 table
 
     //Hide the grid option header
     document.getElementById("gridOptionDiv").style.display = "none";
 
     gridSize = 13;
 
-    //current level initilization
-    for( var currLevelIndex = 0; currLevelIndex < gridSize*gridSize; currLevelIndex++)
-        currentLevel[currLevelIndex] = 0;
-
-    console.log("Current level: " + currentLevel);
-
     selectMode();
-
-    // //Set appropriate text and display button
-    // var changeGridBtn = document.getElementById("changeGridBtn");
-    // changeGridBtn.setAttribute("name", "size13");
-    // changeGridBtn.textContent = "Try 7x7";
-    // var changeGridDiv = document.getElementById("changeGridDiv");
-    // changeGridDiv.style.display = "block";
 }
 
 //Deletes table when user changes grid size
@@ -318,23 +324,25 @@ function replaceModeDiv(){
 
 
 //Helper function to get time
-function startTime(){
-    var startTime = Date.now();
-    var aVar = setInterval(function(){getTime(startTime);}, 1000);
-}
+// function startTime(){
+//     var startTime = Date.now();
+//     setInterval(function(){getTime(startTime);}, 1000);
+//     //var aVar = setInterval(function(){getTime(startTime);}, 1000);
+// }
 
-function setUpForNormalMode(){
+function setupNormalMode(){
     var normModDiv = document.createElement("div");
     normModDiv.setAttribute("id","normModDiv");
     var normModH3 = document.createElement("h3");
     normModH3.textContent = "Select Option";
     var randomLevelBtn = document.createElement("button");
     randomLevelBtn.textContent = "Random level";
-    randomLevelBtn.addEventListener("click", function(){randomLevels()});
+    randomLevelBtn.addEventListener("click", function(){randomLevels();})
 
     var uploadImgBtn = document.createElement("button");
-    uploadImgBtn.textContent = "Upload and image";
-    uploadImgBtn.addEventListener("click", function(){normalMode(2);});
+    uploadImgBtn.textContent = "Upload an image";
+    uploadImgBtn.addEventListener("click", function(){uploadImage()});
+    // uploadImgBtn.addEventListener("click", function(){normalMode(2);});
 
     normModDiv.appendChild(normModH3);
     normModDiv.appendChild(randomLevelBtn);
@@ -375,7 +383,7 @@ function randomLevels(){
 //displays the number of adjacent blocks in a row/column
 function displayGridInfo(level){
     console.log("in displaygridinfo");
-    // var level = arc_obj.game[arcadeLevel].level;
+    // var level = arc_obj.game[levelIndex].level;
     var levelGridSize = 0;
     var rowBlocks = [];
     var columnBlocks = [];
@@ -478,94 +486,88 @@ function displayGridInfo(level){
     }
 }
 
-function playArcadeMode(game_obj){
-    var levelList = [];
-    var currLevel = "";
-    var continuePlaying = true;
+// function continueArcadeMode(){
+function continuePlaying(){
+    document.getElementById("progress").style.display = "none";
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
+    levelIndex++;
+    numTurns = 0;
+    document.getElementById("numTurns").textContent = "Turns: " + numTurns;
+    document.getElementById("continuePlayingDiv").style.display = "none";
+    playGame();
+}
 
-    var arcPlayDiv = document.createElement("div");
-    // arcPlayDiv.style.display = "none";
-    arcPlayDiv.setAttribute("id", "arcPlayDiv");
-    var arcBtnContinue = document.createElement("button");
-    arcBtnContinue.setAttribute("id", "arcContinue");
-    arcBtnContinue.addEventListener("click", function(){continuePlaying = true;});
+//function playArcadeMode(){
+function playGame(){
+    console.log(levelList[levelIndex].levelID);
+    for( var arcL = 0; arcL < (gridSize*gridSize); arcL++){
+        if(levelList[levelIndex].level.charAt(arcL) == 1)
+            numElements++;
+    }
 
+    for( var arcIndex = 0; arcIndex < gridSize*gridSize; arcIndex++)
+        completedLevel[arcIndex] = levelList[levelIndex].level.charAt(arcIndex);
 
+    createTable(gridSize);
+    displayGridInfo(levelList[levelIndex].level);
+}
+
+//function setupArcadeMode(game_obj){
+function setupLevels(game_obj){
+
+    //div with buttons will display once user successfully completes a level
+    var continuePlayingDiv = document.createElement("div");
+    continuePlayingDiv.style.display = "none";
+    continuePlayingDiv.setAttribute("id", "continuePlayingDiv");
+
+    var continueArcBtn = document.createElement("button");
+    continueArcBtn.setAttribute("id","continueArcBtn");
+    continueArcBtn.textContent = "Continue";
+    //continueArcBtn.addEventListener("click",continueArcadeMode);
+    continueArcBtn.addEventListener("click",continuePlaying);
+
+    var homeArcBtn = document.createElement("button");
+    homeArcBtn.setAttribute("id","homeArcBtn");
+    homeArcBtn.textContent = "Main Menu";
+    homeArcBtn.addEventListener("click",function(){window.location.href = "../HTML/index.html";});
+
+    continuePlayingDiv.appendChild(continueArcBtn);
+    continuePlayingDiv.appendChild(homeArcBtn);
+    document.getElementById("centerGridDiv").appendChild(continuePlayingDiv);
 
     console.log(game_obj);
     if(gridSize == 7){
-        levelList = game_obj.arcade.arcade7;
+        levelList = game_obj.levels.levelSize7;
     }
     else if(gridSize == 13){
-        levelList = game_obj.arcade.arcade13;
+        levelList = game_obj.levels.levelSize13;
     }
+    //console.log("The list of levels: " +  levelList[0]);
 
-    while(continuePlaying){
-
-    }
-
-
+    playGame();
 }
-
 
 
 //  /!\IMPORTANT/!\
 // Based on what grid size the user chooses, load appropriate set of levels b/c when displaying 
 // grid info, can get wrong info displaying (e.g. 13x13 won't show remaining table header info past 7)
 //0000000011011010010011000001010001000101000001000
-function loadArcadeLevels(){
+function loadLevels(){
     var gameObj;    //object received from http request
-    var gameObjLevel = "";
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameObj = JSON.parse(this.responseText);
             gameObj = JSON.parse(gameObj);
-            playArcadeMode(gameObj);
+            setupLevels(gameObj);
+            // if(playMode == "arcadeMode")
+            //     setupArcadeMode(gameObj);
+            // else if(playMode == "timeAttackMode")
+            //     setupTimeAttackMode(gameObj);
         }
     };
     xmlhttp.open("GET", "../php/nonogram.php", true);
     xmlhttp.send();
-
-            // if(gridSize === 7){
-            //     gameObjLevel = gameObj.arcade.arcade7[0].level1;
-            //     console.log("Hi2");
-            //     console.log(gameObjLevel)  
-            // }
-            // for( var arcL = 0; arcL < (gridSize*gridSize); arcL++){
-            //     if(gameObjLevel.charAt(arcL) == 1){
-            //         numElements++;
-            //         console.log("Hi");
-            //         console.log(gameObjLevel[arcL]);
-            //     }
-            // }
-
-            // for( var arcIndex = 0; arcIndex < gridSize*gridSize; arcIndex++)  //rli = rand level index
-            //     completedLevel[arcIndex] = gameObjLevel.charAt(arcIndex);
-
-            // createTable(gridSize);
-            // displayGridInfo(gameObjLevel);
-
-
-    //console.log("Hello world");
-    //console.log(gameObj);
-
-    //without reading json file
-    // console.log("in loadarcadelevels");
-    // var jsonObj = '{"game":[{"levelID": "1","size": 7, "level": "0000000011011010010011000001010001000101000001000"},{},{}]}';
-    // var arcObj = JSON.parse(jsonObj);
-    // // var level = arc_obj.game[arcadeLevel].level;
-
-    // var arcTempLevel = arcObj.game[arcadeLevel].level;
-
-    //#####
-    // for( var arcIndex = 0; arcIndex < gridSize*gridSize; arcIndex++)  //rli = rand level index
-    // completedLevel[arcIndex] = randLevel.charAt(arcIndex);
-
-    // console.log("Current level: " + completedLevel);
-
-    // displayGridInfo(arcObj.game[arcadeLevel].level);    //Change this pass completedLevel instead
-    // displayGridInfo(arcObj);
 }
 
 //========================================
@@ -632,7 +634,18 @@ function getTime(startTime){
     minutes = Math.floor((timeEllapsed % 3600) / 60);
     seconds = Math.floor(timeEllapsed % 60);
 
-    document.getElementById("timer").textContent = "Time: " + hours + ":" + minutes + ":" + seconds;;
+    document.getElementById("timer").textContent = "Time: " + hours + ":" + minutes + ":" + seconds;
+}
+
+function countDown(){
+    countDownTime--;
+    if(countDownTime == 0)  //user ran out of time
+        timeUp();
+
+    minutes = Math.floor((countDownTime % 3600) / 60);
+    seconds = Math.floor(countDownTime % 60);
+
+    document.getElementById("timer").textContent = "Time: " + minutes + ":" + seconds;
 }
 
 function numElemInGrid(){
@@ -642,21 +655,100 @@ function numElemInGrid(){
 function numOfTurns(){
 
 }
+
 function checkGameProgress(){
     console.log("Checking Game");
-    var gameWon = true;
-    for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++){
-        if(currentLevel[gridIndex] != completedLevel[gridIndex])
-            gameWon = false;
+    if(numElements === numElemsClicked){
+        if(playMode == "normalMode"){
+            for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++ ){
+                if(currentLevel[gridIndex] != completedLevel[gridIndex]){
+                    return;
+                }
+            }
+            document.getElementById("progress").textContent = "Level completed!";
+            document.getElementById("progress").style.color = "green";
+            document.getElementById("progress").style.display = "block";
+
+            gameComplete();
+        }
+        else if (playMode == "arcadeMode" || playMode == "timeAttackMode"){
+            for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++ ){
+                if(currentLevel[gridIndex] != completedLevel[gridIndex])
+                    return;
+            }
+
+            if(playMode == "arcadeMode")
+                clearInterval(startInterval);
+            else if (playMode == "timeAttackMode"){
+                clearInterval(countDownInterval);
+                countDownTime = 300 + (levelIndex * 60); //give player an extra minute to complete the next level
+            }
+
+            if(levelIndex == levelList.length){
+                document.getElementById("progress").textContent = "Level completed!";
+                document.getElementById("progress").style.color = "green";
+                document.getElementById("progress").style.display = "block";
+
+                gameComplete();
+            }
+            else{
+                document.getElementById("progress").textContent = "Level completed!";
+                document.getElementById("progress").style.color = "green";
+                document.getElementById("progress").style.display = "block";
+                console.log("A win");
+                // while (document.getElementById("centerGridDiv").firstChild) {
+                //     document.getElementById("centerGridDiv").removeChild(document.getElementById("centerGridDiv").firstChild);
+                // }
+                numTurns = 0;
+                numElements = 0;
+                numElemsClicked = 0;
+                completedLevel = [];
+                currentLevel = [];
+                // document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
+                document.getElementById("continuePlayingDiv").style.display = "block";
+            }
+        }
     }
-    if(gameWon)
-        gameComplete();
+    else{
+        document.getElementById("progress").textContent = "Game error";
+        document.getElementById("progress").style.color = 'red';
+        document.getElementById("progress").style.display = "block";
+
+    }
 }
 
 function gameComplete(){
+    console.log("WON");
+
     var gameWonDiv = document.createElement("div");
     gameWonDiv.setAttribute("id","gameWonDiv");
-    gameWonDiv.textContent = "Game Complete!"
+    gameWonDiv.textContent = "Game Complete!";
+
+    var gameWonAnchor = document.createElement("a");
+    gameWonAnchor.setAttribute("href", "../HTML/index.html");
+
+    var gameWonBtn = document.createElement("button");
+    gameWonBtn.textContent = "Play Again";
+
+    gameWonAnchor.innerHTML = "<br>";
+    gameWonAnchor.appendChild(gameWonBtn);
+    gameWonDiv.appendChild(gameWonAnchor);
+
+    var theCenterDiv = document.getElementById("centerGridDiv");
+    while (theCenterDiv.firstChild) {
+        theCenterDiv.removeChild(theCenterDiv.firstChild);
+    }
+
+    document.getElementById("asideLeft").style.display = "none";
+    document.getElementById("gridSettings").style.display = "none";
+    theCenterDiv.appendChild(gameWonDiv);
+}
+
+//User could not complete game in time
+function timeUp(){
+    var gameWonDiv = document.createElement("div");
+    gameWonDiv.setAttribute("id","gameWonDiv");
+    gameWonDiv.textContent = "Time's up";
 
     var gameWonAnchor = document.createElement("a");
     gameWonAnchor.setAttribute("href", "../HTML/index.html");
@@ -693,8 +785,49 @@ function createRandomLevel(){
     alert("random");
 }
 
+/*<form action="uploadfile.php" method="post" enctype="multipart/form-data">
+    <p>Select an image to upload:</p>
+	<ul>
+	<li><input type="file" name="fileup" id="fileup"></li>
+    <li><input type="submit" value="Upload Image" name="submit"></li>
+	</ul>
+</form>*/
+
 function uploadImage(){
-    alert("upload");
+    var uploadForm = document.createElement("form");
+    uploadForm.setAttribute("action","../php/uploadfile.php");
+    uploadForm.setAttribute("method","post");
+    uploadForm.setAttribute("enctype","multipart/form-data");
+
+    var formInfo = document.createElement("p");
+    formInfo.textContent = "Select an image to upload:";
+
+    var form_ul = document.createElement("ul");
+
+    var form_li1 = document.createElement("li");
+
+    var input1 = document.createElement("input");
+    input1.setAttribute("type","file");
+    input1.setAttribute("name","fileup");
+    input1.setAttribute("id","fileup");
+    form_li1.appendChild(input1);
+
+    var form_li2 = document.createElement("li");
+
+    var input2 = document.createElement("input");
+    input2.setAttribute("type","submit");
+    input2.setAttribute("value","Upload image");
+    input2.setAttribute("name","submit");
+    form_li2.appendChild(input2);
+
+    form_ul.appendChild(form_li1);
+    form_ul.appendChild(form_li2);
+
+    uploadForm.appendChild(formInfo);
+    uploadForm.appendChild(form_ul);
+
+    document.getElementById("centerGridDiv").appendChild(uploadForm);
+
 }
 
 function userModeChoice(event_target_id){
@@ -709,7 +842,7 @@ function selectMode(){
     // basicSetup();
     if(playMode === "normalMode"){
         //Hide mode buttons
-        setUpForNormalMode();
+        setupNormalMode();
     }
     else if(playMode === "arcadeMode"){
         //Hide mode buttons
@@ -739,7 +872,7 @@ function arcadeMode(){
     // else if(gridSize == 13){
     //     createTable(13);
     // }
-    loadArcadeLevels();
+    loadLevels();
     document.getElementById("asideLeft").style.display = "block";
     document.getElementById("gridSettings").style.display = "block";
 
@@ -747,4 +880,10 @@ function arcadeMode(){
 
 //User chose time attack mode
 function timeAttackMode(){
+    console.log('in timeattackmode');
+
+    loadLevels();
+    document.getElementById("asideLeft").style.display = "block";
+    document.getElementById("gridSettings").style.display = "block";
+
 }
