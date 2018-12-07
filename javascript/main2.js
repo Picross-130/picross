@@ -4,69 +4,10 @@ window.onload = setup;
 //Didn't wanna use globals but can't really think of an easier way
 var blockColor = "black";
 var gridColor = "white";
-<<<<<<< HEAD
 var numTurns = 0;           //current number of turns
 var numElements = 0;        //number of elements placed on grid
 var numElemsClicked = 0;    //incremented when user selected cell, decremented when user unselects cell
 var levelIndex = 0;        //current arcade level
-=======
-
-//Login Popup form
-function launch(){
-    var modal = document.getElementById('modal');
-    
-    //shows the login box
-    modal.style.display ="block";
-
-    //if user clicks anywhere on the screen besides the popup, screen closes
-    window.onclick = function(event){
-        if(event.target == modal){
-            modal.style.display = "none";
-        }
-    }
-}
-
-function launchRegister(){
-    var modal = document.getElementById('modal');
-    modal.style.display = "none";
-
-    var regModal = document.getElementById('register-modal');
-
-    //shows the login box
-    regModal.style.display ="block";
-
-    //if user clicks anywhere on the screen besides the popup, screen closes
-    window.onclick = function(event){
-        if(event.target == regModal){
-            regModal.style.display = "none";
-        }
-    }
-}
-//find out why this doesn't work
-function launchUser(){
-    // var modal = document.getElementById('modal');
-    // modal.style.display = "none";
-
-    console.log("hello");
-
-    var userModal = document.getElementById('user-modal');
-    userModal.style.display = "block";
-    //shows the logout box
-
-    //if user clicks anywhere on the screen besides the popup, screen closes
-    window.onclick = function(event){
-        if(event.target == userModal){
-            userModal.style.display = "none";
-        }
-    }
-}
-
-//Setup event listeners, create necessary elements and hide certain elements
-var numTurns = 0;       //current number of turns
-var numElements = 0;    //number of elements placed on grid
-var numElemsClicked = 0;      //incremented when user selected cell, decremented when user unselects cell
-var arcadeLevel = 0;    //current arcade level
->>>>>>> cd70e7af3ace2b13bf91ef0b7cdc826e51329165
 var gridSize = 0;
 var playMode = null;        //mode user chooses
 var levelList = [{}];       //list of levels in the arcade mode
@@ -83,7 +24,6 @@ function setup(){
     //hide asides in index.html until user chooses grid size
     document.getElementById("asideLeft").style.display = "none";
     document.getElementById("gridSettings").style.display = "none";
-    document.getElementById('modal').style.display = "none";
 
     //create div to hold the timer
     var timer = document.createElement("h3");
@@ -98,17 +38,6 @@ function setup(){
 
     //onclick event aside div buttons
     document.getElementById("done").addEventListener("click",checkGameProgress);
-
-    //Button to change size of grid
-    //Created at first but hidden until player chooses grid option
-    // var changeGridDiv = document.createElement("div");
-    // changeGridDiv.setAttribute("id", "changeGridDiv");
-    // var changeGridBtn = document.createElement("button");
-    // changeGridBtn.setAttribute("id", "changeGridBtn");
-    // changeGridBtn.addEventListener("click", changeGridSize);
-    // changeGridDiv.appendChild(changeGridBtn);
-    // changeGridDiv.style.display = "none"
-    // document.getElementById("gridSettings").appendChild(changeGridDiv);
 
     //To detect when grid color radio button was selected
     $("input.gridColors").change(function() {
@@ -160,13 +89,6 @@ function basicSetup(){
 
     //Hide mode buttons
     document.getElementById("modeDiv").style.display = "none";
-
-    //==========
-    // var isModeThere = document.getElementById("modeDiv");
-    // if(isModeThere !== null)
-    //     isModeThere.style.display = "none";
-    // else
-    //     document.getElementById("levelOptionDiv").style.display = "none";
 }
 
 //create an n x n table (the grid)
@@ -252,7 +174,6 @@ function createTable(n){
 
     //start time to be used for normal and arcade mode
     if(playMode == "normalMode" || playMode == "arcadeMode"){
-        //startTime();
         var startTime = Date.now();
         startInterval = setInterval(function(){getTime(startTime);}, 1000);
     }
@@ -265,7 +186,6 @@ function createTable(n){
     }
 }
 
-//#### NEEDS change color when reclicked (bool)
 //when a cell is clicked
 function cellClicked(cell){
     cellId = cell.id;
@@ -296,8 +216,7 @@ function cellClicked(cell){
 
     console.log("numElemsClicked: " + numElemsClicked);
     console.log("CurrentLevel: " + currentLevel);
-    // if(numElemsClicked === numElements) //for efficiency
-    //     checkGameProgress();
+
     numTurns++;
     document.getElementById("numTurns").textContent = "Turns: " + numTurns;
 
@@ -305,7 +224,6 @@ function cellClicked(cell){
 
 //User selects grid size option 7x7. Display asides and call createTable()
 function clickedBtn7(){
-    console.log("in clicked 7");
   
     //Hide the grid option header
     document.getElementById("gridOptionDiv").style.display = "none";
@@ -381,14 +299,6 @@ function replaceModeDiv(){
     center_grid_div.appendChild(levelOptionDiv);
 
 }
-
-
-//Helper function to get time
-// function startTime(){
-//     var startTime = Date.now();
-//     setInterval(function(){getTime(startTime);}, 1000);
-//     //var aVar = setInterval(function(){getTime(startTime);}, 1000);
-// }
 
 function setupNormalMode(){
     var normModDiv = document.createElement("div");
@@ -546,7 +456,6 @@ function displayGridInfo(level){
     }
 }
 
-// function continueArcadeMode(){
 function continuePlaying(){
     document.getElementById("progress").style.display = "none";
     document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
@@ -557,7 +466,6 @@ function continuePlaying(){
     playGame();
 }
 
-//function playArcadeMode(){
 function playGame(){
     console.log(levelList[levelIndex].levelID);
     for( var arcL = 0; arcL < (gridSize*gridSize); arcL++){
@@ -572,7 +480,6 @@ function playGame(){
     displayGridInfo(levelList[levelIndex].level);
 }
 
-//function setupArcadeMode(game_obj){
 function setupLevels(game_obj){
 
     //div with buttons will display once user successfully completes a level
@@ -583,7 +490,6 @@ function setupLevels(game_obj){
     var continueArcBtn = document.createElement("button");
     continueArcBtn.setAttribute("id","continueArcBtn");
     continueArcBtn.textContent = "Continue";
-    //continueArcBtn.addEventListener("click",continueArcadeMode);
     continueArcBtn.addEventListener("click",continuePlaying);
 
     var homeArcBtn = document.createElement("button");
@@ -608,10 +514,6 @@ function setupLevels(game_obj){
 }
 
 
-//  /!\IMPORTANT/!\
-// Based on what grid size the user chooses, load appropriate set of levels b/c when displaying 
-// grid info, can get wrong info displaying (e.g. 13x13 won't show remaining table header info past 7)
-//0000000011011010010011000001010001000101000001000
 function loadLevels(){
     var gameObj;    //object received from http request
     var xmlhttp = new XMLHttpRequest();
@@ -620,10 +522,6 @@ function loadLevels(){
             gameObj = JSON.parse(this.responseText);
             gameObj = JSON.parse(gameObj);
             setupLevels(gameObj);
-            // if(playMode == "arcadeMode")
-            //     setupArcadeMode(gameObj);
-            // else if(playMode == "timeAttackMode")
-            //     setupTimeAttackMode(gameObj);
         }
     };
     xmlhttp.open("GET", "../php/nonogram.php", true);
@@ -633,32 +531,6 @@ function loadLevels(){
 //========================================
 //=        End of Helper Functions       =
 //========================================
-
-
-// //Change size of grid to 7x7 or 13x13
-// function changeGridSize(){
-//     var the_btn = document.getElementById("changeGridBtn");
-
-//     if(the_btn.getAttribute("name") === "size7"){   //current value of name attribute is size7
-//         //var doesTable13Exist = document.getElementById("table13");
-//         deleteTable("table7");
-//         createTable(13);    //create 13 x 13
-    
-//         //Set appropriate values for button
-//         the_btn.setAttribute("name", "size13"); //reset name attribute
-//         the_btn.textContent = "Try 7x7";
-
-//     }
-//     else if(the_btn.getAttribute("name") === "size13"){ //current value of name attribute is size13
-//         // var doesTable7Exist = document.getElementById("table7");
-//         deleteTable("table13");
-//         createTable(7);
-    
-//         //Set appropriate values for button
-//         the_btn.setAttribute("name", "size7");  //reset name attribute
-//         the_btn.textContent = "Try 13x13";
-//     }
-// }
 
 //User selects grid color radio button
 function changeGridColor(grid_color){
@@ -717,7 +589,6 @@ function numOfTurns(){
 }
 
 function checkGameProgress(){
-    console.log("Checking Game");
     if(numElements === numElemsClicked){
         if(playMode == "normalMode"){
             for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++ ){
@@ -755,16 +626,12 @@ function checkGameProgress(){
                 document.getElementById("progress").textContent = "Level completed!";
                 document.getElementById("progress").style.color = "green";
                 document.getElementById("progress").style.display = "block";
-                console.log("A win");
-                // while (document.getElementById("centerGridDiv").firstChild) {
-                //     document.getElementById("centerGridDiv").removeChild(document.getElementById("centerGridDiv").firstChild);
-                // }
+
                 numTurns = 0;
                 numElements = 0;
                 numElemsClicked = 0;
                 completedLevel = [];
                 currentLevel = [];
-                // document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
                 document.getElementById("continuePlayingDiv").style.display = "block";
             }
         }
@@ -845,14 +712,6 @@ function createRandomLevel(){
     alert("random");
 }
 
-/*<form action="uploadfile.php" method="post" enctype="multipart/form-data">
-    <p>Select an image to upload:</p>
-	<ul>
-	<li><input type="file" name="fileup" id="fileup"></li>
-    <li><input type="submit" value="Upload Image" name="submit"></li>
-	</ul>
-</form>*/
-
 function uploadImage(){
     var uploadForm = document.createElement("form");
     uploadForm.setAttribute("action","../php/uploadfile.php");
@@ -913,16 +772,6 @@ function selectMode(){
         timeAttackMode();
     }
 }
-
-// //User chose normal mode
-// function normalMode(normal_mode_option){
-//     if(normal_mode_option == 1){
-//         randomLevels();
-//     }
-//     else if(normal_mode_option == 2){
-//         console.log("hi");
-//     }
-// }
 
 //User chose arcade mode
 function arcadeMode(){

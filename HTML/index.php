@@ -97,10 +97,10 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="../HTML/index.html"><button id="mainMenuBtn">Main Menu</button></a>
+                <a href="../HTML/index.html"><button id="mainMenuBtn">Main Menu</button></a><br>
+                <button id="giveUp">Give up</button><br>
+                <button id="done">Done</button>
                 <h3 id="numTurns">Turns: 0</h3>
-                <button>Give up</button>
-                <div>D button</div>
 
             </aside>
 
