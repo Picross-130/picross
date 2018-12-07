@@ -2,6 +2,7 @@
 
 session_start(); //command to use sessions
 
+session_start();
 //make this cleaner
 // if(isset($_POST['username'])){
 //     $username =  htmlspecialchars($_POST['username']);
