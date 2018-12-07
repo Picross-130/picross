@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script src="../javascript/main.js"></script>
+    <script src="../javascript/server.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <title>Nonogram</title>
@@ -13,12 +15,27 @@
     <header>
         <nav>
             <ul>
-                <li> <a href="../HTML/how-to-play.html">How to play</a> </li>
-                <li> <a href="../HTML/about.html">About</a> </li>
-                <li> <a href="../HTML/about.html">Login</a> </li>
-
+                <a href="../HTML/how-to-play.html"><li>How to play</li></a>
+                <a href="../HTML/about.html"><li>About</li></a>
+                <a href='#' onclick="launch()" id="loginBtn"><li class="lastItem">Login</li></a>
             </ul>
         </nav>
+        <!-- Popup box for login form -->
+        <div id="modal">
+            <div id="modal-container">
+                <form action="../php/login.php" method="POST">
+                    <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+                    <h2>Login</h2>
+                    <input type="text" id="username" placeholder="Username">
+                    <input type="password" id="password" placeholder="Password">
+                    <input type="button" onclick="loadToServer()" id="login" name="login" value="Login">
+                    <div class="register">
+                        <a href="#">Register</a> - <a href="#">Forgot Password?</a>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
     </header>
 
         <h1 id="gameTitle">NONOGRAM</h1>
@@ -67,7 +84,6 @@
 
         </div>
         <footer></footer>
-    <script src="../javascript/main.js"></script>
 </body>
 </html>
 

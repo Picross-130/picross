@@ -4,10 +4,34 @@ window.onload = setup;
 //Didn't wanna use globals but can't really think of an easier way
 var blockColor = "black";
 var gridColor = "white";
+<<<<<<< HEAD
 var numTurns = 0;           //current number of turns
 var numElements = 0;        //number of elements placed on grid
 var numElemsClicked = 0;    //incremented when user selected cell, decremented when user unselects cell
 var levelIndex = 0;        //current arcade level
+=======
+
+//Login Popup form
+function launch(){
+    var modal = document.getElementById('modal');
+
+    //shows the login box
+    modal.style.display ="block";
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+}
+
+//Setup event listeners, create necessary elements and hide certain elements
+var numTurns = 0;       //current number of turns
+var numElements = 0;    //number of elements placed on grid
+var numElemsClicked = 0;      //incremented when user selected cell, decremented when user unselects cell
+var arcadeLevel = 0;    //current arcade level
+>>>>>>> cd70e7af3ace2b13bf91ef0b7cdc826e51329165
 var gridSize = 0;
 var playMode = null;        //mode user chooses
 var levelList = [{}];       //list of levels in the arcade mode
@@ -24,6 +48,7 @@ function setup(){
     //hide asides in index.html until user chooses grid size
     document.getElementById("asideLeft").style.display = "none";
     document.getElementById("gridSettings").style.display = "none";
+    document.getElementById('modal').style.display = "none";
 
     //create div to hold the timer
     var timer = document.createElement("h3");
