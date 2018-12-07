@@ -8,7 +8,7 @@ var gridColor = "white";
 //Login Popup form
 function launch(){
     var modal = document.getElementById('modal');
-
+    
     //shows the login box
     modal.style.display ="block";
 
@@ -16,6 +16,41 @@ function launch(){
     window.onclick = function(event){
         if(event.target == modal){
             modal.style.display = "none";
+        }
+    }
+}
+
+function launchRegister(){
+    var modal = document.getElementById('modal');
+    modal.style.display = "none";
+
+    var regModal = document.getElementById('register-modal');
+
+    //shows the login box
+    regModal.style.display ="block";
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == regModal){
+            regModal.style.display = "none";
+        }
+    }
+}
+//find out why this doesn't work
+function launchUser(){
+    // var modal = document.getElementById('modal');
+    // modal.style.display = "none";
+
+    console.log("hello");
+
+    var userModal = document.getElementById('user-modal');
+    userModal.style.display = "block";
+    //shows the logout box
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == userModal){
+            userModal.style.display = "none";
         }
     }
 }
