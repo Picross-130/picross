@@ -19,12 +19,63 @@ var countDownInterval;      //handler for setInterval(countDown function)
 var imgFileName = "";       //name of the image the user uploaded
 
 
+//Login Popup form
+function launch(){
+    var modal = document.getElementById('modal');
+    
+    //shows the login box
+    modal.style.display ="block";
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == modal){
+            modal.style.display = "none";
+        }
+    }
+}
+
+function launchRegister(){
+    var modal = document.getElementById('modal');
+    modal.style.display = "none";
+
+    var regModal = document.getElementById('register-modal');
+
+    //shows the login box
+    regModal.style.display ="block";
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == regModal){
+            regModal.style.display = "none";
+        }
+    }
+}
+//find out why this doesn't work
+function launchUser(){
+    // var modal = document.getElementById('modal');
+    // modal.style.display = "none";
+
+    console.log("hello");
+
+    var userModal = document.getElementById('user-modal');
+    userModal.style.display = "block";
+    //shows the logout box
+
+    //if user clicks anywhere on the screen besides the popup, screen closes
+    window.onclick = function(event){
+        if(event.target == userModal){
+            userModal.style.display = "none";
+        }
+    }
+}
+
 //Setup even listeners, create necessary elements and hide certain elements
 //not currently needed
 function setup(){
     //hide asides in index.html until user chooses grid size
     document.getElementById("asideLeft").style.display = "none";
     document.getElementById("gridSettings").style.display = "none";
+    document.getElementById('modal').style.display = "none";
 
     //create div to hold the timer
     var timer = document.createElement("h3");
