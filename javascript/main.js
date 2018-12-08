@@ -4,12 +4,20 @@ window.onload = setup;
 //Didn't wanna use globals but can't really think of an easier way
 var blockColor = "black";
 var gridColor = "white";
-<<<<<<< HEAD
 var numTurns = 0;           //current number of turns
 var numElements = 0;        //number of elements placed on grid
 var numElemsClicked = 0;    //incremented when user selected cell, decremented when user unselects cell
 var levelIndex = 0;        //current arcade level
-=======
+var gridSize = 0;
+var playMode = null;        //mode user chooses
+var levelList = [{}];       //list of levels in the arcade mode
+var completedLevel = [];    //reference to the completed level
+var currentLevel = [];      //what the current level looks like as user plays (selects cells)
+var startInterval;          //handler for setInterval(startTime function) 
+var countDownTime;          //player has 5 mininutes to complete a level
+var countDownInterval;      //handler for setInterval(countDown function)
+var imgFileName = "";       //name of the image the user uploaded
+
 
 //Login Popup form
 function launch(){
@@ -61,22 +69,6 @@ function launchUser(){
     }
 }
 
-//Setup event listeners, create necessary elements and hide certain elements
-var numTurns = 0;       //current number of turns
-var numElements = 0;    //number of elements placed on grid
-var numElemsClicked = 0;      //incremented when user selected cell, decremented when user unselects cell
-var arcadeLevel = 0;    //current arcade level
->>>>>>> cd70e7af3ace2b13bf91ef0b7cdc826e51329165
-var gridSize = 0;
-var playMode = null;        //mode user chooses
-var levelList = [{}];       //list of levels in the arcade mode
-var completedLevel = [];    //reference to the completed level
-var currentLevel = [];      //what the current level looks like as user plays (selects cells)
-var startInterval;          //handler for setInterval(startTime function) 
-var countDownTime;    //player has 5 mininutes to complete a level
-var countDownInterval;      //handler for setInterval(countDown function)
-
-
 //Setup even listeners, create necessary elements and hide certain elements
 //not currently needed
 function setup(){
@@ -97,6 +89,8 @@ function setup(){
     document.getElementById("timeAttackMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
 
     //onclick event aside div buttons
+    document.getElementById("bestMove").addEventListener("click",checkGameProgress);
+    document.getElementById("worstMove").addEventListener("click",checkGameProgress);
     document.getElementById("done").addEventListener("click",checkGameProgress);
 
     //Button to change size of grid
@@ -834,7 +828,13 @@ function gameError(){
 
 }
 
-function suggestMoves(){
+function suggestMoves(suggest_choice){
+    if(suggest_choice == 1){
+
+    }
+    else if(suggest_choice == 2){
+        
+    }
     /*
     here you can do something like getting a randsom number from 0..(n^2)[n being the size of the grid]
     and while the n == 1, get a new n then when you find an n == 0 you mark that cell with an x
@@ -844,49 +844,131 @@ function suggestMoves(){
 function createRandomLevel(){
     alert("random");
 }
+//After image has been uploaded and converted into a level, play game
+function playUploadedImage(img_level){
+    for( var imgL = 0; imgL < (gridSize*gridSize); arcL++){
+        if(img_level.charAt(imgL) == 1)
+            numElements++;
+    }
 
-/*<form action="uploadfile.php" method="post" enctype="multipart/form-data">
-    <p>Select an image to upload:</p>
-	<ul>
-	<li><input type="file" name="fileup" id="fileup"></li>
-    <li><input type="submit" value="Upload Image" name="submit"></li>
-	</ul>
-</form>*/
+    for( var imgIndex = 0; imgIndex < gridSize*gridSize; imgIndex++)
+        completedLevel[imgIndex] = img_level.charAt(imgIndex);
+
+    createTable(gridSize);
+    displayGridInfo(img_level);
+    document.getElementById("asideLeft").style.display = "block";
+    document.getElementById("gridSettings").style.display = "block";
+}
 
 function uploadImage(){
-    var uploadForm = document.createElement("form");
-    uploadForm.setAttribute("action","../php/uploadfile.php");
-    uploadForm.setAttribute("method","post");
-    uploadForm.setAttribute("enctype","multipart/form-data");
+    var the_img_level = "";
+    //
+    //
+    //
+    //
+    // var uploadForm = document.createElement("form");
+    // uploadForm.setAttribute("action","../php/uploadfile.php");
+    // uploadForm.setAttribute("method","post");
+    // uploadForm.setAttribute("enctype","multipart/form-data");
 
-    var formInfo = document.createElement("p");
-    formInfo.textContent = "Select an image to upload:";
+    // var formInfo = document.createElement("p");
+    // formInfo.textContent = "Select an image to upload:";
 
-    var form_ul = document.createElement("ul");
+    // var form_ul = document.createElement("ul");
 
-    var form_li1 = document.createElement("li");
+    // var form_li1 = document.createElement("li");
 
-    var input1 = document.createElement("input");
-    input1.setAttribute("type","file");
-    input1.setAttribute("name","fileup");
-    input1.setAttribute("id","fileup");
-    form_li1.appendChild(input1);
+    // var input1 = document.createElement("input");
+    // input1.setAttribute("type","file");
+    // input1.setAttribute("name","fileup");
+    // input1.setAttribute("id","fileup");
+    // form_li1.appendChild(input1);
 
-    var form_li2 = document.createElement("li");
+    // var form_li2 = document.createElement("li");
 
-    var input2 = document.createElement("input");
-    input2.setAttribute("type","submit");
-    input2.setAttribute("value","Upload image");
-    input2.setAttribute("name","submit");
-    form_li2.appendChild(input2);
+    // var input2 = document.createElement("input");
+    // input2.setAttribute("type","submit");
+    // input2.setAttribute("value","Upload image");
+    // input2.setAttribute("name","submit");
+    // form_li2.appendChild(input2);
 
-    form_ul.appendChild(form_li1);
-    form_ul.appendChild(form_li2);
+    // form_ul.appendChild(form_li1);
+    // form_ul.appendChild(form_li2);
 
-    uploadForm.appendChild(formInfo);
-    uploadForm.appendChild(form_ul);
+    // uploadForm.appendChild(formInfo);
+    // uploadForm.appendChild(form_ul);
 
-    document.getElementById("centerGridDiv").appendChild(uploadForm);
+    // document.getElementById("centerGridDiv").appendChild(uploadForm);
+    ///
+    //
+    ///
+    //
+
+    /*<input id="sortpicture" type="file" name="sortpic" />
+<button id="upload">Upload</button>*/
+//type="file" name="fileup" id="fileup"
+    var inputBtn = document.createElement("input");
+    inputBtn.setAttribute("id","fileup");
+    inputBtn.setAttribute("type","file");
+    inputBtn.setAttribute("name","fileup");
+
+    var submitBtn = document.createElement("button");
+    submitBtn.setAttribute("id","upload");
+    submitBtn.setAttribute("type","submit");
+    submitBtn.textContent = "Upload";
+
+    document.getElementById("centerGridDiv").appendChild(inputBtn);
+    document.getElementById("centerGridDiv").appendChild(submitBtn);
+
+    $('#upload').on('click', function() {
+        var file_data = $('#fileup').prop('files')[0];   
+        var form_data = new FormData();                  
+        form_data.append('file', file_data);
+        alert(form_data);                             
+        $.ajax({
+            url: '../php/uploadfile.php', // point to server-side PHP script 
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(php_script_response){
+                var responsefromphp = php_script_response;
+                console.log(responsefromphp);
+                console.log(typeof responsefromphp);
+                //console.log(php_script_response); // display response from the PHP script, if any
+            }
+         });
+    });
+    
+    // $('form').on('submit', function (e) {
+
+    //     e.preventDefault();
+
+    //     $.ajax({
+    //       type: 'post',
+    //       url: '../php/uploadfile.php',
+    //       data: $('form').serialize(),
+    //       success: function () {
+    //         alert('form was submitted');
+    //       }
+    //     });
+
+    //   });
+    // $('#uploadImg').submit(function() {
+    //     $.post('./php/uploadfile.php');
+    //   });
+
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         the_img_level = this.responseText;
+    //         playUploadedImage(the_img_level);
+    //     }
+    // };
+    // xmlhttp.open("POST", "../php/imgage_gray_solution.php", true);
+    // xmlhttp.send();
 
 }
 
