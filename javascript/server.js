@@ -107,34 +107,4 @@ function regToServer(){
         document.getElementById('register').innerHTML = "Account Registered";
 
     }
-class User{
-    constructor(email, username, password1, password2){
-        this.email = email;
-        this.username = username;
-        this.password1 = password1;
-        this.password2 = password2;
-    }
-}
 
-function regToServer(){
-    let users = [
-        new User(document.getElementById("email").value,
-        document.getElementById("regUsername").value,
-        document.getElementById("password1").value,
-        document.getElementById("password2").value )
-    ]
-    var userString = JSON.stringify(users);
-    console.log(typeof(userString));
-    console.log(userString);
-    httpRequest = new XMLHttpRequest();
-    if (!httpRequest){
-        alert('Cannot create an XMLHTTP instance');
-        return false;
-    }
-    httpRequest.onreadystatechange = alertContents;
-    httpRequest.open('POST', '../php/register.php', true);
-    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('user=' + userString);
-    // console.log(username);
-    // console.log(password);
-}

@@ -11,7 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-
+    <!-- <script src="../javascript/main.js"></script> -->
+    <script src="../javascript/server.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 
@@ -104,7 +105,6 @@
                 <button id="giveUp" class="asideLeftBtn">Give up</button><br>
                 <button id="done" class="asideLeftBtn">Done</button>
                 <h3 id="numTurns">Turns: 0</h3>
-
             </aside>
 
             <aside id="gridSettings">
