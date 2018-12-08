@@ -9,10 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <script src="../javascript/main.js"></script>
-    <script src="../javascript/server.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 
     <title>Nonogram</title>
 </head>
@@ -97,9 +98,11 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="../HTML/index.html"><button id="mainMenuBtn">Main Menu</button></a><br>
-                <button id="giveUp">Give up</button><br>
-                <button id="done">Done</button>
+                <a href="../HTML/index.html"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
+                <button id="bestMove" class="asideLeftBtn">Best Move</button>
+                <button id="worstMove" class="asideLeftBtn">Worst Move</button>
+                <button id="giveUp" class="asideLeftBtn">Give up</button><br>
+                <button id="done" class="asideLeftBtn">Done</button>
                 <h3 id="numTurns">Turns: 0</h3>
 
             </aside>
@@ -131,6 +134,7 @@
 
         </div>
         <footer></footer>
+    <script src="../javascript/main.js"></script>
 </body>
 </html>
 
