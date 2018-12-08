@@ -1,5 +1,5 @@
 <?php
-    session_start() //command to use sessions
+    session_start(); //command to use sessions
 ?>
 
 
@@ -9,12 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <!-- <script src="../javascript/main.js"></script> -->
+    <script src="../javascript/main.js"></script>
     <script src="../javascript/server.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 
     <title>Nonogram</title>
 </head>
@@ -39,7 +37,7 @@
         <!-- Popup box for login form -->
         <div id="modal">
             <div id="modal-container">
-                <form method="POST" action="../php/login.php" id="loginForm"> 
+                <form method="POST" action="login.php" id="loginForm"> 
                     <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
                     <h2>Login</h2>
                     <div id="loginErrors"></div>
@@ -75,17 +73,17 @@
         <!-- Popup box for Logout form -->
         <div id="user-modal">
             <div id="user-container">
-                <form method="POST" action="../php/user.php" id="user-form">
+                <form method="post" action="user.php" id="user-form" enctype="multipart/form-data">
                     <span class="close" onclick="document.getElementById('user-modal').style.display='none'">&times;</span>
                     <div id="avatar"></div>
-                    <input type="file" name="fileup" id="fileup">
+                    <input type="file" name="fileUpload" id="fileup">
                     <input type="submit" name="upload" id="uploadBtn" value="Upload Image">
                     <input type="submit" name="logout" id="logoutBtn" value="Logout">
                 </form>
             </div>
         </div>
     </header>
-    <!-- ============================================================================================================================ -->
+    
 
         <h1 id="gameTitle">NONOGRAM</h1>
 
@@ -99,12 +97,11 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="../HTML/index.html"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
-                <button id="bestMove" class="asideLeftBtn">Best Move</button>
-                <button id="worstMove" class="asideLeftBtn">Worst Move</button>
-                <button id="giveUp" class="asideLeftBtn">Give up</button><br>
-                <button id="done" class="asideLeftBtn">Done</button>
+                <a href="index.php"><button id="mainMenuBtn">Main Menu</button></a>
                 <h3 id="numTurns">Turns: 0</h3>
+                <button>Give up</button>
+                <div>D button</div>
+
             </aside>
 
             <aside id="gridSettings">
@@ -134,7 +131,6 @@
 
         </div>
         <footer></footer>
-    <script src="../javascript/main.js"></script>
 </body>
 </html>
 

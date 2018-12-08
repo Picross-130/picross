@@ -2,9 +2,10 @@
 
 //by default XAMPP uses root for user and '' for password
 $serverName = "localhost";
-$admin = "root";
-$serverPassword = "";
-$dbname = "users";
+$admin = "csci130";
+$serverPassword = "123456";
+$dbname = "dataofbase";
+
 
 // creates connection
 $conn = new mysqli($serverName, $admin, $serverPassword, $dbname);
@@ -16,14 +17,12 @@ if($conn->connect_error){
 echo "Connected successfully\n";
 
 // Creation of the database
-// $sql = "CREATE DATABASE users";
-// if ($conn->query($sql) === TRUE) {
-//     echo "Database created successfully<br>";
-// } else {
-//     echo "Error creating database: " . $conn->error ."<br>";
-// }
-
-// $conn->close();
+$sql = "CREATE DATABASE dataofbase";
+if ($conn->query($sql) === TRUE) {
+    echo "Database created successfully<br>";
+} else {
+    echo "Error creating database: " . $conn->error ."\n";
+}
 
 $sql = "CREATE TABLE User (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -31,7 +30,8 @@ $sql = "CREATE TABLE User (
     email VARCHAR(50),
     password VARCHAR(50) NOT NULL,
     score INT(11) NULL,
-    reg_date TIMESTAMP
+    reg_date TIMESTAMP,
+    imagePath VARCHAR(250)
     )";
     
 if ($conn->query($sql) === TRUE) {

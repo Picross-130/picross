@@ -1,8 +1,7 @@
 <?php include_once 'server.php';
 
-session_start(); //command to use sessions
 
-session_start();
+session_start(); //command to use sessions
 //make this cleaner
 // if(isset($_POST['username'])){
 //     $username =  htmlspecialchars($_POST['username']);
@@ -45,14 +44,14 @@ if ($result->num_rows > 0) {
             $_SESSION['password'] = md5($password);
             $_SESSION['success'] = "You are now logged in";
             $conn->close();
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
         else{
             // echo $row["password"] . " " . md5($password) . "\n";
             
             $error = 'Invalid username and password';
                 
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
 
     }
