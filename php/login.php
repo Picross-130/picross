@@ -45,14 +45,14 @@ if ($result->num_rows > 0) {
             $_SESSION['password'] = md5($password);
             $_SESSION['success'] = "You are now logged in";
             $conn->close();
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
         else{
             // echo $row["password"] . " " . md5($password) . "\n";
             
             $error = 'Invalid username and password';
                 
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
 
     }

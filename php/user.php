@@ -5,7 +5,7 @@ session_start();
 if(!empty($_POST["logout"])) {
     //session_unset();
     session_destroy();
-    header('Location:../HTML/index.php');
+    header('Location:index.php');
 }
 
 $target_directory = "avatarUploads/"; //folder where images will be stored

@@ -75,7 +75,7 @@
         <!-- Popup box for Logout form -->
         <div id="user-modal">
             <div id="user-container">
-                <form method="POST" action="../php/user.php" id="user-form">
+                <form method="POST" action="user.php" id="user-form">
                     <span class="close" onclick="document.getElementById('user-modal').style.display='none'">&times;</span>
                     <div id="avatar"></div>
                     <input type="file" name="fileup" id="fileup">
@@ -99,7 +99,7 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="../HTML/index.html"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
+                <a href="index.php"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
                 <button id="bestMove" class="asideLeftBtn">Best Move</button>
                 <button id="worstMove" class="asideLeftBtn">Worst Move</button>
                 <button id="giveUp" class="asideLeftBtn">Give up</button><br>
