@@ -107,4 +107,4 @@ function regToServer(){
         document.getElementById('register').innerHTML = "Account Registered";
 
     }
-
+}
