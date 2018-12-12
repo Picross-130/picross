@@ -100,7 +100,11 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="index.php"><button id="mainMenuBtn">Main Menu</button></a>
+                <a href="index.php"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
+                <button id="bestMove" class="asideLeftBtn">Best Move</button>
+                <button id="worstMove" class="asideLeftBtn">Worst Move</button>
+                <button id="giveUp" class="asideLeftBtn">Give up</button><br>
+                <button id="done" class="asideLeftBtn">Done</button>
                 <h3 id="numTurns">Turns: 0</h3>
                 <button>Give up</button>
                 <div>D button</div>

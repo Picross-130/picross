@@ -27,7 +27,6 @@ if(isset($_POST["upload"])) {
     }
 }
 
-
 // Verify the file size
 if ($_FILES["fileUpload"]["size"] > 500000) {
     echo "<li>The file is too large.</li>";
