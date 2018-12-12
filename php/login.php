@@ -1,8 +1,7 @@
 <?php include_once 'server.php';
 
-session_start(); //command to use sessions
 
-session_start();
+session_start(); //command to use sessions
 //make this cleaner
 // if(isset($_POST['username'])){
 //     $username =  htmlspecialchars($_POST['username']);
@@ -30,7 +29,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
     
-$sql = "SELECT username, password FROM User";
+$sql = "SELECT * FROM User";
 
 $result = $conn->query($sql);
 
@@ -43,16 +42,17 @@ if ($result->num_rows > 0) {
 
             $_SESSION['username'] = $username;
             $_SESSION['password'] = md5($password);
-            $_SESSION['success'] = "You are now logged in";
+            $_SESSION['image']= $row['imagePath'];
+            // echo $_SESSION['image'];
             $conn->close();
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
         else{
             // echo $row["password"] . " " . md5($password) . "\n";
             
             $error = 'Invalid username and password';
                 
-            header('Location:../HTML/index.php');
+            header('Location: index.php');
         }
 
     }

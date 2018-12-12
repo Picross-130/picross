@@ -30,6 +30,10 @@ li {
 	width: 24%;
 	text-align: center;
 	border-left: 1px solid rgb(231,234,237);
+	padding: 20px;
+}
+.lastItem{
+	border-right: 1px solid rgb(231,234,237);
 }
 
 a{
@@ -238,7 +242,7 @@ table{
 } */
 
 /* ---------------------------------------------------------------  */
-/* -----------------Login/Register/Logout box----------------------------  */
+/* -----------------Login/Register/User box----------------------------  */
 /* ---------------------------------------------------------------  */
 .register{
 	padding-top: 5%;
@@ -263,7 +267,7 @@ input[type=text], input[type=password], input[type=email] {
     box-sizing: border-box;
 }
 
-#login, #signUp{
+#login, #register-submit{
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -317,6 +321,11 @@ label{
 	padding-left: 10%;
 	font-weight: bold;
 	/* padding: 20%; */
+}
+#avatarImage{
+	width: 40%;
+	height: 40%;
+
 }
 
 /* #thc0{
