@@ -96,8 +96,8 @@ function regToServer(){
         var errorDiv = document.getElementById('errors');
         var success = document.createTextNode("Account Registered");
         errorDiv.appendChild(success);
-        document.getElementById("errors").id = "success"
         document.getElementById('register').submit();
+       
     }
 
     // if(error.length == 0){ //if array is populated, doesn't post to server
