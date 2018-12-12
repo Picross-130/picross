@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,26 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../css/how-to-play.css" />
 </head>
+
 <body>
     <h1>How to Play Nonogram</h1>
 
-    <p>Nonogram is also known as Picross or Griddlers. Nonograms are picture logic puzzles in which cells in a grid are colored or left blank depending on the hidden picture embedded in the grid.
-       The grid contains numbers at the top of the grid and to the left of the grid, these numbers tell you if there are a group of consecutive black squares somewhere in that row or column.
-       If there is more than one number in a row or column, it indicates that there are multiple groups of colored squares in that row or column separated by white spaces.
+    <p>Nonogram is also known as Picross or Griddlers. Nonograms are picture logic puzzles in which cells in a grid are
+        colored or left blank depending on the hidden picture embedded in the grid.
+        The grid contains numbers at the top of the grid and to the left of the grid, these numbers tell you if there
+        are a group of consecutive black squares somewhere in that row or column.
+        If there is more than one number in a row or column, it indicates that there are multiple groups of colored
+        squares in that row or column separated by white spaces.
     </p>
 
-    <p>In the example below, a 3 in a row or column means that somewhere in that row or column there is a colored block that can be revealed in the grid.
-       If there are multiple numbers, that means there are multiple groups of colored blocks in the grid of that row or column separated by white spaces, as shown in the example
-       below with 3 3 on the left side of the grid.
+    <p>In the example below, a 3 in a row or column means that somewhere in that row or column there is a colored block
+        that can be revealed in the grid.
+        If there are multiple numbers, that means there are multiple groups of colored blocks in the grid of that row
+        or column separated by white spaces, as shown in the example
+        below with 3 3 on the left side of the grid.
     </p>
     <div>
-        <input type="button" value="Back" onclick="back()">
+        <input class="backBtn" type="button" value="Back" onclick="back()">
     </div>
-    <img src="../Images/picrossA-2.jpg" alt="picross image">
+    <img src="../Images/picrossA-2.png" alt="picross image">
 
 
     <script>
-        function back(){
+        function back() {
             window.history.back();
         }
     </script>

@@ -1,5 +1,5 @@
 <?php
-    session_start() //command to use sessions
+    session_start(); //command to use sessions
 ?>
 
 
@@ -9,12 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" type="text/css" href="../css/index.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <!-- <script src="../javascript/main.js"></script> -->
+    <script src="../javascript/main.js"></script>
     <script src="../javascript/server.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
 
     <title>Nonogram</title>
 </head>
@@ -28,7 +26,7 @@
                 <?php $message = (isset($_SESSION['username']) ? "Hello " . $_SESSION['username'] . " !" : "Login");?>
                 <?php 
                     if(isset($_SESSION['username'])) {
-                        echo "<a href='#' onclick='launchUser()' id='loginBtn'><li class='lastItem'>$message</li></a>";
+                        echo "<a href='#' onclick='launchUser()' id='loginBtn' ><li class='lastItem'>$message</li></a>";
                     }
                     else{
                         echo "<a href='#' onclick='launch()' id='loginBtn'><li class='lastItem'>$message</li></a>";
@@ -39,14 +37,14 @@
         <!-- Popup box for login form -->
         <div id="modal">
             <div id="modal-container">
-                <form method="POST" action="../php/login.php" id="loginForm"> 
+                <form method="POST" action="login.php" id="loginForm"> 
                     <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
                     <h2>Login</h2>
                     <div id="loginErrors"></div>
                     <input type="text" id="username" name="username" placeholder="Username" required>
                     <input type="password" id="password" name="password" placeholder="Password" required>
                     <!-- <input type="button" onclick="loadToServer()" id="login" value="Login"> -->
-                    <input type="submit" name="submit" id="login">
+                    <input type="submit" name="submit" value="Login" id="login">
                     <div class="register">
                         <a href="#" onclick="launchRegister()">Register</a> - <a href="#">Forgot Password?</a>
                     </div>
@@ -56,36 +54,39 @@
         <!-- Popup box for register form -->
         <div id="register-modal">
             <div id="reg-modal-container">
-                <form id="register">
+                <form method="POST" action="register.php" id="register"  onsubmit="regToServer()">
                     <span class="close" onclick="document.getElementById('register-modal').style.display='none'">&times;</span>
                     <h2>Sign Up</h2>
                     <div id="errors"></div>
                     <label>Email</label>
-                    <input type="email" id="email" placeholder="Enter an email" required>
+                    <input type="email" id="email" name="email" placeholder="Enter an email" required>
                     <label>Username</label>
-                    <input type="text" id="regUsername" placeholder="Enter a username" required>
+                    <input type="text" id="regUsername" name="username" placeholder="Enter a username" required>
                     <label>Password</label>
-                    <input type="password" id="password1" placeholder="Enter a password" required>
+                    <input type="password" id="password1" name="password1" placeholder="Enter a password" required>
                     <label>Re-Enter Password</label>
-                    <input type="password" id="password2" placeholder="Re-Enter password" required>
-                    <input type="button" onclick="regToServer()" id="signUp" value="Sign Up">
+                    <input type="password" id="password2" name="password2"placeholder="Re-Enter password" required>
+                    <input type="submit" name="register-submit" id="register-submit" value="Sign Up">
+                    <!-- <input type="button" onclick="regToServer()" id="signUp" value="Sign Up"> -->
                 </form>
             </div>
         </div>
         <!-- Popup box for Logout form -->
         <div id="user-modal">
             <div id="user-container">
-                <form method="POST" action="../php/user.php" id="user-form">
+                <form method="post" action="user.php" id="user-form" enctype="multipart/form-data">
                     <span class="close" onclick="document.getElementById('user-modal').style.display='none'">&times;</span>
-                    <div id="avatar"></div>
-                    <input type="file" name="fileup" id="fileup">
+                    <!-- php checks to see if imagePath is available -->
+                    <?php $imageSet = ((isset($_SESSION['image'])) ? $_SESSION['image'] : "avatarUploads/facebook default pic.jpg");?>
+                    <div id="avatar"><img alt="Uploaded image" id="avatarImage" src= <?php echo "'". $imageSet . "'";?>/></div> 
+                    <input type="file" name="fileUpload" id="fileup">
                     <input type="submit" name="upload" id="uploadBtn" value="Upload Image">
                     <input type="submit" name="logout" id="logoutBtn" value="Logout">
                 </form>
             </div>
         </div>
     </header>
-    <!-- ============================================================================================================================ -->
+    
 
         <h1 id="gameTitle">NONOGRAM</h1>
 
@@ -99,12 +100,15 @@
             </div>
 
             <aside id="asideLeft">
-                <a href="../HTML/index.html"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
+                <a href="index.php"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
                 <button id="bestMove" class="asideLeftBtn">Best Move</button>
                 <button id="worstMove" class="asideLeftBtn">Worst Move</button>
                 <button id="giveUp" class="asideLeftBtn">Give up</button><br>
                 <button id="done" class="asideLeftBtn">Done</button>
                 <h3 id="numTurns">Turns: 0</h3>
+                <button>Give up</button>
+                <div>D button</div>
+
             </aside>
 
             <aside id="gridSettings">
@@ -134,7 +138,6 @@
 
         </div>
         <footer></footer>
-    <script src="../javascript/main.js"></script>
 </body>
 </html>
 

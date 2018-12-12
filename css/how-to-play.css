@@ -1,4 +1,6 @@
-
+html{
+    padding-top: 40px;
+}
 h1{
     text-align: center;
 }
@@ -13,8 +15,7 @@ p{
 img{
     display: block;
     margin-left: auto;
-    margin-right: auto;
-    padding-right: 5vw;
+    margin-right: auto;  
     height: auto;
     width: auto;
 }
@@ -22,7 +23,7 @@ img{
 div{
     display: flex;
     justify-content: center;
-    padding-right: 40px;
+    
 }
 
 input [type=button]{
@@ -37,3 +38,16 @@ input [type=button]{
 
 }
 
+.backBtn{
+    width: 40%;
+	padding: 10px 20px;
+    margin: 10px 10px;
+    display: inline-block;
+	border: 2px solid #ccc;
+    box-sizing: border-box;;
+}
+
+body{
+    	
+    background-color: #F7E7CE;
+}

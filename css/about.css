@@ -1,7 +1,37 @@
 h1{
     text-align: center;
+    padding-bottom: 40px;
 }
 
-section{
+#nina{
+    padding-bottom: 50px;
+}
+#alex{
+    padding-bottom: 50px;
+}
+h3, p{
+    margin-right: auto;
+    margin-left: auto;
+    width: 40vw;
+    
+}
+
+body{
+    	
+    background-color: #F7E7CE;
+}
+
+.backBtn{
+    width: 40%;
+	padding: 10px 20px;
+    margin: 10px 10px;
+    display: inline-block;
+	border: 2px solid #ccc;
+    box-sizing: border-box;;
+}
+
+div{
+    display: flex;
+    justify-content: center;
     
 }

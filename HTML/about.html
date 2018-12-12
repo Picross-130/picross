@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>About Us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../css/about.css" />
     <script src="main.js"></script>
@@ -11,18 +11,32 @@
 <body>
     <h1>About Us</h1>
 
-    <section>
+    <section id="nina">
         <h3>Nina Lee</h3>
         <p>
-            Computer Science Student at Fresno State.
+            I'm a Computer Science Student at Fresno State projected to finish in Spring semester of 2019. I enjoy learning new technologies and tools that
+            I can utilize in programming. Over the past semesters I had the opportunity to do hands-on work with langauges like C++, Javascript, CSS,
+            Python, Haskell, JQuery, PHP, HTML, and mySQL. 
         </p>
     </section>
 
-    <section>
-        <h3>Alan something</h3>
+    <section id="alex">
+        <h3>Alan Ortega</h3>
         <p>
-            Computer Science Student at Fresno State.
+            I'm a Computer Science Student at Fresno State projected to finish in Spring semester of 2019. I enjoy learning new technologies and tools that
+            I can utilize in programming. Over the past semesters I had the opportunity to do hands-on work with langauges like C++, Javascript, CSS,
+            Python, Haskell, JQuery, PHP, HTML, and mySQL. 
         </p>
     </section>
+
+    <div>
+        <input class="backBtn" type="button" value="Back" onclick="back()">
+    </div>
+    
+    <script>
+        function back() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
