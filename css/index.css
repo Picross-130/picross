@@ -1,14 +1,13 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	height: 100%;
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: white;
-	/* background-color: rgb(55,154,218); */
 }
 
 nav {
 	text-align: center;
-	/* align-content: center; */
 	max-width: 100%;
 	background-color: white;
 	padding: none;
@@ -40,6 +39,89 @@ a{
 	text-decoration: none;
 }
 
+/* ---------------------------------------------------------------  */
+/* -----------------Login/Register/Logout box----------------------------  */
+/* ---------------------------------------------------------------  */
+.register{
+	padding-top: 5%;
+}
+input[type=text], input[type=password], input[type=email] {
+	width: 80%;
+	padding: 10px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+#fileup,
+#uploadBtn,
+#logoutBtn{
+	width: 80%;
+	padding: 10px 20px;
+    margin: 10px 0;
+    display: inline-block;
+	border: 1px solid #ccc;
+	
+    box-sizing: border-box;
+}
+
+#login, #signUp{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+	margin: 10px 0px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+}
+
+#modal, 
+#register-modal, 
+#user-modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+#modal-container, 
+#reg-modal-container, 
+#user-container{
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+	width: 30%; 
+	padding-bottom: 70px;
+}
+
+.close {
+    /* position: absolute; */
+	color: #000;
+    font-size: 35px;
+	font-weight: bold;
+	/* text-align: center; */
+    margin:0;
+	position: relative;
+	left: 14vw;
+	top: 0;
+}
+.close:hover, .close:focus {
+    color: red;
+	cursor: pointer;
+}
+
+label{
+	display: flex;
+	padding-left: 10%;
+	font-weight: bold;
+	/* padding: 20%; */
+}
+/* -------------------------------- */
+
 #gameTitle{
 	font-family: 'Acme', sans-serif;
 }
@@ -53,8 +135,6 @@ a{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	/* text-align: center; */
 }
 
 #modeDiv button{
@@ -63,8 +143,6 @@ a{
 	border-radius: 0.5em;
 	font-size: 1em;
 	margin-top: 1em;
-	/* width: 130px;
-	height: 30px; */
 }
 
 #normalMode{
@@ -93,23 +171,6 @@ a{
 #timeAttackMode:hover{
 	background-color:rgb(204, 39, 31);
 }
-/* #modeDiv button{
-	position: absolute;
-    top: 100px;
-    left: 200px;
-    display: inline-block;
-    margin: 0 auto;
-
-	background-color: red;
-	width: 7em;
-	height: 3em;
-	border-radius: 0.5em;
-	font-size: 1em;
-	margin-top: 1em;
-	
-}  */
-
-
 
 #asideLeft{
 	box-shadow: 0 6px 0 rgba(255,255,255,0.2) inset;
@@ -117,11 +178,16 @@ a{
 }
 
 .asideLeftBtn{
-	width: 7em;
-	height: 3em;
+	background-color: rgb(86,192,248);
+	width: auto;
+	height: auto;
 	border-radius: 0.5em;
-	font-size: 1em;
+	font-size: auto;
 	margin-top: 1em;
+}
+
+.asideLeftBtn:hover{
+	background-color: rgb(57,124,241);
 }
 
 #timer{
@@ -138,6 +204,7 @@ a{
 	flex-direction: row;
 	align-content: center;
 	justify-content: center;
+	padding-bottom: 200px;
 }
 
 #centerGridDiv{
@@ -147,16 +214,43 @@ a{
 
 #asideLeft{
 	order: 1;
-	flex-grow: 0;
+	flex-grow: .125;
 	border: 1px solid grey;
-	background-color: rgb(231,234,237);
+	color: white;
+	background-color: rgb(78, 23, 151);
 }
 
 #gridSettings{
 	order: 3;
-	flex-grow: 0;
+	flex-grow: .125;
 	border: 1px solid grey;
-	background-color: rgb(231,234,237);
+	color: white;
+	background-color: rgb(78, 23, 151);
+}
+
+#buttonDiv{
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+}
+
+#mainMenuBtn{
+	order: 1;
+}
+
+#bestMove{
+	order: 2;
+}
+
+#worstMove{
+	order: 3;
+}
+
+#done{
+	order: 4;
 }
 
 h1{
@@ -175,15 +269,6 @@ div{
 	text-align: center;
 }
 
-/* #normalMode{
-	background-color: rgb(18, 214, 18);
-	height: 50px;
-	width: 100px;
-	font-size: 2em;
-	border-radius: 10%;
-	text-align: center;
-} */
-
 #startGame:hover{
 	background-color: rgb(19, 177, 19);
 }
@@ -197,17 +282,12 @@ button{
 }
 
 #btn7, #btn13{
+	background-color: rgb(32, 223, 223);
 	width: 7em;
 	height: 3em;
 	border-radius: 0.5em;
 	font-size: 1em;
 	margin-top: 1em;
-	/* background-color: aqua;
-	height: 25px;
-	width: 50px;
-	font-size: 15px;
-	border-radius: 10%;
-	margin: auto; */
 }
 
 #btn7:hover, #btn13:hover{
@@ -221,16 +301,6 @@ button{
 #btn13{
 	margin-left: 3px;
 }
-
-/* .cell:hover {
-	background-color: silver;
-	cursor: default;
-}  */
-
-/* td:hover {
-	background-color: silver;
-	cursor: default;
-} */
 
 table{
 	background-color: white;
@@ -343,53 +413,28 @@ label{
 th{
 	background-color: white;
 }
-.thcr{
-	-webkit-transform:rotate(90deg);
-    -moz-transform:rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform:rotate(90deg);
-	transform: rotate(90deg);
-	word-break: break-all;
-
-	/* word-wrap: break-word; */
-	/* height: auto; */
-	/* white-space: nowrap */
-
-/* .thc{ */
-	/* transform-origin: left top 0; */
-	/* writing-mode: vertical-lr; */
-
-	/* writing-mode:tb-rl; */
-	/* filter: flipv fliph; */
-	/* display: inline-block; */
-	/* -webkit-transform:rotate(90deg);
-    -moz-transform:rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform:rotate(90deg);
-	transform: rotate(90deg);
-	max-width:100%;
-	white-space:nowrap; */
-
-	/* word-wrap: break-word; */
-/* } */
 
 .thr{
 	white-space: nowrap
-
 }
 
 th{
 	height: 2em;
 	width: 2em;
-	/* background-color: transparent; */
 }
-
-/* table th:nth-child(odd){
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-} */
 
 .cell{
 	height: 2em;
 	width: 2em;
 }
+
+footer {
+	position: fixed;
+	height: 100px; 
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color:rgb(73, 49, 105);
+	color: white;
+	text-align: center;
+ }

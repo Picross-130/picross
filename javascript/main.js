@@ -5,7 +5,7 @@ window.onload = setup;
 var blockColor = "black";
 var gridColor = "white";
 var numTurns = 0;           //current number of turns
-var numElements = 0;        //number of elements placed on grid
+var numElements = 0;        //number of elements placed on grid (number of non-space elements)
 var numElemsClicked = 0;    //incremented when user selected cell, decremented when user unselects cell
 var levelIndex = 0;        //current arcade level
 var gridSize = 0;
@@ -17,7 +17,9 @@ var startInterval;          //handler for setInterval(startTime function)
 var countDownTime;          //player has 5 mininutes to complete a level
 var countDownInterval;      //handler for setInterval(countDown function)
 var imgFileName = "";       //name of the image the user uploaded
-
+var score = 0;              //user's score
+// var numNonSpaceElems = 0;   //number of non-space elements
+var numErrors = 0;          //numbe of errors
 
 //Login Popup form
 function launch(){
@@ -89,20 +91,10 @@ function setup(){
     document.getElementById("timeAttackMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
 
     //onclick event aside div buttons
-    document.getElementById("bestMove").addEventListener("click",checkGameProgress);
-    document.getElementById("worstMove").addEventListener("click",checkGameProgress);
+    document.getElementById("mainMenuBtn").addEventListener("click",function(){window.location.href = "../HTML/index.html";});
+    document.getElementById("bestMove").addEventListener("click",function(){hint(1);});
+    document.getElementById("worstMove").addEventListener("click",function(){hint(2);});
     document.getElementById("done").addEventListener("click",checkGameProgress);
-
-    //Button to change size of grid
-    //Created at first but hidden until player chooses grid option
-    // var changeGridDiv = document.createElement("div");
-    // changeGridDiv.setAttribute("id", "changeGridDiv");
-    // var changeGridBtn = document.createElement("button");
-    // changeGridBtn.setAttribute("id", "changeGridBtn");
-    // changeGridBtn.addEventListener("click", changeGridSize);
-    // changeGridDiv.appendChild(changeGridBtn);
-    // changeGridDiv.style.display = "none"
-    // document.getElementById("gridSettings").appendChild(changeGridDiv);
 
     //To detect when grid color radio button was selected
     $("input.gridColors").change(function() {
@@ -154,13 +146,6 @@ function basicSetup(){
 
     //Hide mode buttons
     document.getElementById("modeDiv").style.display = "none";
-
-    //==========
-    // var isModeThere = document.getElementById("modeDiv");
-    // if(isModeThere !== null)
-    //     isModeThere.style.display = "none";
-    // else
-    //     document.getElementById("levelOptionDiv").style.display = "none";
 }
 
 //create an n x n table (the grid)
@@ -259,8 +244,7 @@ function createTable(n){
     }
 }
 
-//#### NEEDS change color when reclicked (bool)
-//when a cell is clicked
+//When a cell is clicked
 function cellClicked(cell){
     cellId = cell.id;
     var thisCell = document.getElementById(cellId);
@@ -290,8 +274,7 @@ function cellClicked(cell){
 
     console.log("numElemsClicked: " + numElemsClicked);
     console.log("CurrentLevel: " + currentLevel);
-    // if(numElemsClicked === numElements) //for efficiency
-    //     checkGameProgress();
+
     numTurns++;
     document.getElementById("numTurns").textContent = "Turns: " + numTurns;
 
@@ -376,25 +359,21 @@ function replaceModeDiv(){
 
 }
 
-
-//Helper function to get time
-// function startTime(){
-//     var startTime = Date.now();
-//     setInterval(function(){getTime(startTime);}, 1000);
-//     //var aVar = setInterval(function(){getTime(startTime);}, 1000);
-// }
-
+//Normal mode buttons and for image upload
 function setupNormalMode(){
     var normModDiv = document.createElement("div");
     normModDiv.setAttribute("id","normModDiv");
     var normModH3 = document.createElement("h3");
     normModH3.textContent = "Select Option";
     var randomLevelBtn = document.createElement("button");
+    randomLevelBtn.setAttribute("id","randLevelBtn");
+    randomLevelBtn.style.backgroundColor = "rgb(86,192,248)";
     randomLevelBtn.textContent = "Random level";
     randomLevelBtn.addEventListener("click", function(){randomLevels();})
 
     var uploadImgBtn = document.createElement("button");
     uploadImgBtn.textContent = "Upload an image";
+    uploadImgBtn.style.backgroundColor = "rgb(86,192,248)";
     uploadImgBtn.addEventListener("click", function(){uploadImage()});
     // uploadImgBtn.addEventListener("click", function(){normalMode(2);});
 
@@ -542,6 +521,8 @@ function displayGridInfo(level){
 
 // function continueArcadeMode(){
 function continuePlaying(){
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("userScore"));
+    // document.getElementById("userScore").style.display = "none";
     document.getElementById("progress").style.display = "none";
     document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
     levelIndex++;
@@ -596,16 +577,10 @@ function setupLevels(game_obj){
     else if(gridSize == 13){
         levelList = game_obj.levels.levelSize13;
     }
-    //console.log("The list of levels: " +  levelList[0]);
-
     playGame();
 }
 
-
-//  /!\IMPORTANT/!\
-// Based on what grid size the user chooses, load appropriate set of levels b/c when displaying 
-// grid info, can get wrong info displaying (e.g. 13x13 won't show remaining table header info past 7)
-//0000000011011010010011000001010001000101000001000
+//Load levels from server
 function loadLevels(){
     var gameObj;    //object received from http request
     var xmlhttp = new XMLHttpRequest();
@@ -614,10 +589,6 @@ function loadLevels(){
             gameObj = JSON.parse(this.responseText);
             gameObj = JSON.parse(gameObj);
             setupLevels(gameObj);
-            // if(playMode == "arcadeMode")
-            //     setupArcadeMode(gameObj);
-            // else if(playMode == "timeAttackMode")
-            //     setupTimeAttackMode(gameObj);
         }
     };
     xmlhttp.open("GET", "../php/nonogram.php", true);
@@ -628,32 +599,6 @@ function loadLevels(){
 //=        End of Helper Functions       =
 //========================================
 
-
-// //Change size of grid to 7x7 or 13x13
-// function changeGridSize(){
-//     var the_btn = document.getElementById("changeGridBtn");
-
-//     if(the_btn.getAttribute("name") === "size7"){   //current value of name attribute is size7
-//         //var doesTable13Exist = document.getElementById("table13");
-//         deleteTable("table7");
-//         createTable(13);    //create 13 x 13
-    
-//         //Set appropriate values for button
-//         the_btn.setAttribute("name", "size13"); //reset name attribute
-//         the_btn.textContent = "Try 7x7";
-
-//     }
-//     else if(the_btn.getAttribute("name") === "size13"){ //current value of name attribute is size13
-//         // var doesTable7Exist = document.getElementById("table7");
-//         deleteTable("table13");
-//         createTable(7);
-    
-//         //Set appropriate values for button
-//         the_btn.setAttribute("name", "size7");  //reset name attribute
-//         the_btn.textContent = "Try 13x13";
-//     }
-// }
-
 //User selects grid color radio button
 function changeGridColor(grid_color){
     gridColor = grid_color;
@@ -663,10 +608,6 @@ function changeGridColor(grid_color){
     $( ".aTable" ).css( "background-color", grid_color );
 
 }
-
-//make globar var initially set to black(the default color when cell is clicked)
-//then do onclick to set the background color to the appropriate radio button color
-//the call the function to handle the backend part of it.
 
 //User selects block color raio button
 function changeBlockColor(block_color){
@@ -716,6 +657,8 @@ function checkGameProgress(){
         if(playMode == "normalMode"){
             for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++ ){
                 if(currentLevel[gridIndex] != completedLevel[gridIndex]){
+                    numErrors++;
+                    console.log("Number of errors "+numErrors);
                     return;
                 }
             }
@@ -727,8 +670,10 @@ function checkGameProgress(){
         }
         else if (playMode == "arcadeMode" || playMode == "timeAttackMode"){
             for( var gridIndex = 0; gridIndex < gridSize*gridSize; gridIndex++ ){
-                if(currentLevel[gridIndex] != completedLevel[gridIndex])
+                if(currentLevel[gridIndex] != completedLevel[gridIndex]){
+                    numErrors++;
                     return;
+                }
             }
 
             if(playMode == "arcadeMode")
@@ -749,16 +694,19 @@ function checkGameProgress(){
                 document.getElementById("progress").textContent = "Level completed!";
                 document.getElementById("progress").style.color = "green";
                 document.getElementById("progress").style.display = "block";
+
+                var scoreH = document.createElement("h3");
+                scoreH.setAttribute("id","userScore");
+                document.getElementById("centerGridDiv").appendChild(scoreH);
+                scoreH.textContent = "Score: " + getScore();
+
+
                 console.log("A win");
-                // while (document.getElementById("centerGridDiv").firstChild) {
-                //     document.getElementById("centerGridDiv").removeChild(document.getElementById("centerGridDiv").firstChild);
-                // }
                 numTurns = 0;
                 numElements = 0;
                 numElemsClicked = 0;
                 completedLevel = [];
                 currentLevel = [];
-                // document.getElementById("centerGridDiv").removeChild(document.getElementById("table"+gridSize));
                 document.getElementById("continuePlayingDiv").style.display = "block";
             }
         }
@@ -769,6 +717,9 @@ function checkGameProgress(){
         document.getElementById("progress").style.display = "block";
 
     }
+    numErrors++;
+    console.log("Number of errors "+numErrors);
+
 }
 
 function gameComplete(){
@@ -828,17 +779,31 @@ function gameError(){
 
 }
 
-function suggestMoves(suggest_choice){
-    if(suggest_choice == 1){
+//give player a best/worst move hint but with a penalty of 5 points
+function hint(suggest_choice){
+    var cellHint = Math.floor((Math.random() * (gridSize*gridSize)));   //choose cell to give hint
 
+    if(suggest_choice == 1){    //make cell text ✓
+        while(completedLevel[cellHint] != 1)
+            cellHint = Math.floor((Math.random() * (gridSize*gridSize)));
+        console.log("Cell Hint: "+cellHint);
+            //document.getElementById("cell"+cellHint).style.backgroundColor = blockColor;
+        document.getElementById("cell"+cellHint).textContent = "✓";
+        document.getElementById("cell"+cellHint).style.color = "rgb(153,0,76";
+        numErrors+=5;
     }
-    else if(suggest_choice == 2){
-        
+    else if(suggest_choice == 2){   //make cell text x
+        while(completedLevel[cellHint] != 0)
+        cellHint = Math.floor((Math.random() * (gridSize*gridSize)));
+        document.getElementById("cell"+cellHint).textContent = "x";
+        document.getElementById("cell"+cellHint).style.color = "rgb(153,0,76";
+        numErrors+=5;
     }
-    /*
-    here you can do something like getting a randsom number from 0..(n^2)[n being the size of the grid]
-    and while the n == 1, get a new n then when you find an n == 0 you mark that cell with an x
-    */
+}
+
+function getScore(){
+    score = ((Math.max((numElements - numErrors),0))/numElements)*100; 
+    return score;
 }
 
 function createRandomLevel(){
@@ -861,115 +826,102 @@ function playUploadedImage(img_level){
 }
 
 function uploadImage(){
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("normModDiv"));
     var the_img_level = "";
-    //
-    //
-    //
-    //
-    // var uploadForm = document.createElement("form");
-    // uploadForm.setAttribute("action","../php/uploadfile.php");
-    // uploadForm.setAttribute("method","post");
-    // uploadForm.setAttribute("enctype","multipart/form-data");
+    var uploadForm = document.createElement("form");
+    uploadForm.setAttribute("action","../php/uploadfile.php");
+    uploadForm.setAttribute("method","post");
+    uploadForm.setAttribute("enctype","multipart/form-data");
+    uploadForm.setAttribute("id","imageUploadForm");
+    uploadForm.setAttribute("name",gridSize); //name will take size of grid to be used with post
 
-    // var formInfo = document.createElement("p");
-    // formInfo.textContent = "Select an image to upload:";
+    var formInfo = document.createElement("p");
+    formInfo.textContent = "Select an image to upload:";
 
-    // var form_ul = document.createElement("ul");
+    var form_ul = document.createElement("ul");
 
-    // var form_li1 = document.createElement("li");
+    var form_li1 = document.createElement("li");
 
-    // var input1 = document.createElement("input");
-    // input1.setAttribute("type","file");
-    // input1.setAttribute("name","fileup");
-    // input1.setAttribute("id","fileup");
-    // form_li1.appendChild(input1);
+    var input1 = document.createElement("input");
+    input1.setAttribute("type","file");
+    input1.setAttribute("name","fileup");
+    input1.setAttribute("id","fileup");
+    form_li1.appendChild(input1);
 
-    // var form_li2 = document.createElement("li");
+    var form_li2 = document.createElement("li");
 
-    // var input2 = document.createElement("input");
-    // input2.setAttribute("type","submit");
-    // input2.setAttribute("value","Upload image");
-    // input2.setAttribute("name","submit");
-    // form_li2.appendChild(input2);
+    var input2 = document.createElement("input");
+    input2.setAttribute("type","submit");
+    input2.setAttribute("value","Upload image");
+    input2.setAttribute("name","submit");
+    form_li2.appendChild(input2);
 
-    // form_ul.appendChild(form_li1);
-    // form_ul.appendChild(form_li2);
+    form_ul.appendChild(form_li1);
+    form_ul.appendChild(form_li2);
 
-    // uploadForm.appendChild(formInfo);
-    // uploadForm.appendChild(form_ul);
+    uploadForm.appendChild(formInfo);
+    uploadForm.appendChild(form_ul);
 
-    // document.getElementById("centerGridDiv").appendChild(uploadForm);
-    ///
-    //
-    ///
-    //
+    document.getElementById("centerGridDiv").appendChild(uploadForm);
 
-    /*<input id="sortpicture" type="file" name="sortpic" />
-<button id="upload">Upload</button>*/
-//type="file" name="fileup" id="fileup"
-    var inputBtn = document.createElement("input");
-    inputBtn.setAttribute("id","fileup");
-    inputBtn.setAttribute("type","file");
-    inputBtn.setAttribute("name","fileup");
-
-    var submitBtn = document.createElement("button");
-    submitBtn.setAttribute("id","upload");
-    submitBtn.setAttribute("type","submit");
-    submitBtn.textContent = "Upload";
-
-    document.getElementById("centerGridDiv").appendChild(inputBtn);
-    document.getElementById("centerGridDiv").appendChild(submitBtn);
-
-    $('#upload').on('click', function() {
-        var file_data = $('#fileup').prop('files')[0];   
-        var form_data = new FormData();                  
-        form_data.append('file', file_data);
-        alert(form_data);                             
-        $.ajax({
-            url: '../php/uploadfile.php', // point to server-side PHP script 
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data,                         
-            type: 'post',
-            success: function(php_script_response){
-                var responsefromphp = php_script_response;
-                console.log(responsefromphp);
-                console.log(typeof responsefromphp);
-                //console.log(php_script_response); // display response from the PHP script, if any
-            }
-         });
-    });
+    $(document).ready(function (e) {
+        $('#imageUploadForm').on('submit',(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
     
-    // $('form').on('submit', function (e) {
+            $.ajax({
+                type:'POST',
+                url: $(this).attr("action"),
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    console.log("First hi"+data);
+                    var xmlhttpImgToLevel = new XMLHttpRequest();
+                    xmlhttpImgToLevel.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            the_img_level = this.responseText;
+                            console.log(the_img_level);
+                            startImgGame(the_img_level);
+                            //playUploadedImage(the_img_level);
+                        }       
+                    };
+                    xmlhttpImgToLevel.open("GET", "../php/image_gray_solution.php?name="+data+"&value="+gridSize, true);
+                    xmlhttpImgToLevel.send();
+                    console.log("HI"+data);
+                },
+                error: function(data){
+                    console.log("ERROR"+data);
+                }
+            });
+        }));
+    
+        $("#fileup").on("submit", function() {
+            $("#imageUploadForm").submit();
+        });
+    });
+}
 
-    //     e.preventDefault();
+function startImgGame(image_level){
+    console.log("THE LEVEL: "+ image_level);
+    console.log("LEVEL LENGTH: "+image_level.length);
+    console.log("Image to level play");
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("normModDiv"));
+    document.getElementById("centerGridDiv").removeChild(document.getElementById("imageUploadForm"));
 
-    //     $.ajax({
-    //       type: 'post',
-    //       url: '../php/uploadfile.php',
-    //       data: $('form').serialize(),
-    //       success: function () {
-    //         alert('form was submitted');
-    //       }
-    //     });
+    for( var imgl = 0; imgl < (gridSize*gridSize); imgl++){
+        if(image_level.charAt(imgl) == 1)
+            numElements++;
+    }
 
-    //   });
-    // $('#uploadImg').submit(function() {
-    //     $.post('./php/uploadfile.php');
-    //   });
+    for( var imgli = 0; imgli < gridSize*gridSize; imgli++)
+        completedLevel[imgli] = image_level.charAt(imgli);
 
-    // var xmlhttp = new XMLHttpRequest();
-    // xmlhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         the_img_level = this.responseText;
-    //         playUploadedImage(the_img_level);
-    //     }
-    // };
-    // xmlhttp.open("POST", "../php/imgage_gray_solution.php", true);
-    // xmlhttp.send();
-
+    createTable(gridSize);
+    displayGridInfo(image_level);
+    document.getElementById("asideLeft").style.display = "block";
+    document.getElementById("gridSettings").style.display = "block";
 }
 
 function userModeChoice(event_target_id){
@@ -996,24 +948,10 @@ function selectMode(){
     }
 }
 
-// //User chose normal mode
-// function normalMode(normal_mode_option){
-//     if(normal_mode_option == 1){
-//         randomLevels();
-//     }
-//     else if(normal_mode_option == 2){
-//         console.log("hi");
-//     }
-// }
-
 //User chose arcade mode
 function arcadeMode(){
     console.log("in arcademode");
-    // if(gridSize == 7)
-    //     createTable(7);
-    // else if(gridSize == 13){
-    //     createTable(13);
-    // }
+
     loadLevels();
     document.getElementById("asideLeft").style.display = "block";
     document.getElementById("gridSettings").style.display = "block";
