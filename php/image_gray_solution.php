@@ -9,7 +9,7 @@
     // see files given on blackboard
     if (isset($_GET["value"]) && isset($_GET["name"])) {
         $size_matrix= $_GET["value"];
-        $source_file = $_SERVER['DOCUMENT_ROOT']."/picross-project/php/".substr($_GET["name"],7);
+        $source_file = $_SERVER['DOCUMENT_ROOT']."/picross-master/php/uploads".substr($_GET["name"],7);
         // Read the image file
         // http://php.net/manual/en/function.imagecreatefromjpeg.php
         // if(pathinfo($source_file,PATHINFO_EXTENSION == "jpeg")){

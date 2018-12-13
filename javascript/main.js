@@ -91,7 +91,7 @@ function setup(){
     document.getElementById("timeAttackMode").addEventListener("click", function(event){userModeChoice(event.target.id);})
 
     //onclick event aside div buttons
-    document.getElementById("mainMenuBtn").addEventListener("click",function(){window.location.href = "../HTML/index.html";});
+    document.getElementById("mainMenuBtn").addEventListener("click",function(){window.location.href = "../php/index.php";});
     document.getElementById("bestMove").addEventListener("click",function(){hint(1);});
     document.getElementById("worstMove").addEventListener("click",function(){hint(2);});
     document.getElementById("done").addEventListener("click",checkGameProgress);
@@ -564,7 +564,7 @@ function setupLevels(game_obj){
     var homeArcBtn = document.createElement("button");
     homeArcBtn.setAttribute("id","homeArcBtn");
     homeArcBtn.textContent = "Main Menu";
-    homeArcBtn.addEventListener("click",function(){window.location.href = "../HTML/index.html";});
+    homeArcBtn.addEventListener("click",function(){window.location.href = "../php/index.php";});
 
     continuePlayingDiv.appendChild(continueArcBtn);
     continuePlayingDiv.appendChild(homeArcBtn);
@@ -730,7 +730,7 @@ function gameComplete(){
     gameWonDiv.textContent = "Game Complete!";
 
     var gameWonAnchor = document.createElement("a");
-    gameWonAnchor.setAttribute("href", "../HTML/index.html");
+    gameWonAnchor.setAttribute("href", "../php/index.php");
 
     var gameWonBtn = document.createElement("button");
     gameWonBtn.textContent = "Play Again";
@@ -756,7 +756,7 @@ function timeUp(){
     gameWonDiv.textContent = "Time's up";
 
     var gameWonAnchor = document.createElement("a");
-    gameWonAnchor.setAttribute("href", "../HTML/index.html");
+    gameWonAnchor.setAttribute("href", "../php/index.php");
 
     var gameWonBtn = document.createElement("button");
     gameWonBtn.textContent = "Play Again";
@@ -907,7 +907,7 @@ function startImgGame(image_level){
     console.log("THE LEVEL: "+ image_level);
     console.log("LEVEL LENGTH: "+image_level.length);
     console.log("Image to level play");
-    document.getElementById("centerGridDiv").removeChild(document.getElementById("normModDiv"));
+    //document.getElementById("centerGridDiv").removeChild(document.getElementById("normModDiv"));
     document.getElementById("centerGridDiv").removeChild(document.getElementById("imageUploadForm"));
 
     for( var imgl = 0; imgl < (gridSize*gridSize); imgl++){
