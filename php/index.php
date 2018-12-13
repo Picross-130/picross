@@ -85,57 +85,51 @@
     </header>
     
 
-        <h1 id="gameTitle">NONOGRAM</h1>
+    <h1 id="gameTitle">NONOGRAM</h1>
 
-        <div id="container">
-            <div id="centerGridDiv">
-                <div id="modeDiv">
-                    <button id="normalMode">Normal Mode</button>
-                    <button id="arcadeMode">Arcade Mode</button>
-                    <button id="timeAttackMode">Time Attack Mode</button>
-                </div>
+    <div id="container">
+        <div id="centerGridDiv">
+            <div id="modeDiv">
+                <button id="normalMode">Normal Mode</button>
+                <button id="arcadeMode">Arcade Mode</button>
+                <button id="timeAttackMode">Time Attack Mode</button>
             </div>
+        </div>
 
-            <aside id="asideLeft">
-                <a href="index.php"><button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button></a><br>
+        <aside id="asideLeft">
+            <div id="buttonDiv">
+                <button id="mainMenuBtn" class="asideLeftBtn">Main Menu</button>
                 <button id="bestMove" class="asideLeftBtn">Best Move</button>
                 <button id="worstMove" class="asideLeftBtn">Worst Move</button>
-                <button id="giveUp" class="asideLeftBtn">Give up</button><br>
                 <button id="done" class="asideLeftBtn">Done</button>
-                <h3 id="numTurns">Turns: 0</h3>
-                <button>Give up</button>
-                <div>D button</div>
+            </div>
+            <h3 id="numTurns">Turns: 0</h3>
 
-            </aside>
+        </aside>
 
-            <aside id="gridSettings">
-                <h2>Grid color</h2>
-                    <form id = "gridColorForm">
-                        <input id="gw" class="gridColors" type="radio" name="gridColor" value="white" checked> White<br>
-                        <input id="go" class="gridColors" type="radio" name="gridColor" value="orange"> Orange<br>
-                        <input id="gl" class="gridColors" type="radio" name="gridColor" value="lime"> Lime<br>
-                        <input id="gv" class="gridColors" type="radio" name="gridColor" value="violet"> Violet<br>
-                        <input id="gb" class="gridColors" type="radio" name="gridColor" value="blue"> Blue
-                    </form>
-        
+        <aside id="gridSettings">
+            <h2>Grid color</h2>
+                <form id = "gridColorForm">
+                    <input id="gw" class="gridColors" type="radio" name="gridColor" value="white" checked> White<br>
+                    <input id="go" class="gridColors" type="radio" name="gridColor" value="orange"> Orange<br>
+                    <input id="gl" class="gridColors" type="radio" name="gridColor" value="lime"> Lime<br>
+                    <input id="gv" class="gridColors" type="radio" name="gridColor" value="violet"> Violet<br>
+                    <input id="gb" class="gridColors" type="radio" name="gridColor" value="blue"> Blue
+                </form>
+
                 <h2>Block color</h2>
-                    <form id = "blockColorForm">
-                        <input id="bb" class="blockColors" type="radio" name="blockColor" value="black" checked> Black<br>
-                        <input id="bg" class="blockColors" type="radio" name="blockColor" value="grey"> Grey<br>
-                        <input id="ba" class="blockColors" type="radio" name="blockColor" value="aqua"> Aqua<br>
-                        <input id="by" class="blockColors" type="radio" name="blockColor" value="yellow"> Yellow<br>
-                        <input id="br" class="blockColors" type="radio" name="blockColor" value="red"> Red
-                    </form>
+                <form id = "blockColorForm">
+                    <input id="bb" class="blockColors" type="radio" name="blockColor" value="black" checked> Black<br>
+                    <input id="bg" class="blockColors" type="radio" name="blockColor" value="grey"> Grey<br>
+                    <input id="ba" class="blockColors" type="radio" name="blockColor" value="aqua"> Aqua<br>
+                    <input id="by" class="blockColors" type="radio" name="blockColor" value="yellow"> Yellow<br>
+                    <input id="br" class="blockColors" type="radio" name="blockColor" value="red"> Red
+                </form>
+        </aside>
+    </div>
 
-                <!-- <h2>Grid Size</h2> -->
-
-            </aside>
-        </div>
-        <div id="timerContainer">
-
-        </div>
-        <footer></footer>
+    <footer>
+    <p>Created by Nina Lee and Alan Ortega 2018</p>
+    </footer>
 </body>
 </html>
-
-<!-- <h2 id="letsPlay">Let's Play!</h2> -->
